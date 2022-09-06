@@ -12,7 +12,7 @@ import { Autoplay, EffectCube, Pagination } from "swiper";
 
 const Banner = () => {
     return (
-        <div className="container flex justify-items-center m-auto">
+        <div className="container  flex justify-items-center m-auto">
             <Swiper
                 effect={"cube"}
                 grabCursor={true}

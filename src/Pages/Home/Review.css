@@ -1,0 +1,15 @@
+.review-swiper {
+  width: 520px;
+  height: 520px;
+  
+}
+
+.review-SwiperSlide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+}

@@ -1,0 +1,14 @@
+.ad-card{
+    margin-top: 500px;
+    margin-bottom: 200px;
+}
+.ad-cardBody{
+    width: 580px;
+    height: 300px;
+}
+.card-bg:hover{
+    transition: all .5s;
+    transform: scale(1.2);
+
+
+}
