@@ -1,6 +1,9 @@
 .review-swiper {
-  width: 520px;
+  width: 400px;
   height: 520px;
+  margin-top: -1px;
+  padding-top: 10px;
+  margin-bottom: 300px;
   
 }
 
