@@ -8,6 +8,7 @@ import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
+import UseToken from '../Hooks/UseToken';
 
 const Signup = () => {
     const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
@@ -26,13 +27,15 @@ const Signup = () => {
     let cheqLoading;
     console.log(user)
 
+    const [token]  = UseToken(user || guser);
+
     if (error || gerror) {
         errorLogin = <p className='text-red-600'>{error?.message || gerror?.message}</p>
     }
     if (loading || gloading) {
         cheqLoading = <div className='ml-auto mr-auto mt-2'><button className="btn btn-square  loading"></button></div>;
     }
-    if (user || guser) {
+    if (token) {
         navigate(from, { replace: true });
     }
 

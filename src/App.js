@@ -8,12 +8,11 @@ import ManageOrder from './Pages/Dashboard/ManageOrder';
 import ManageParts from './Pages/Dashboard/ManageParts';
 import Myorders from './Pages/Dashboard/Myorders';
 import Myprofile from './Pages/Dashboard/Myprofile';
-
-
-
+import Payment from './Pages/Dashboard/Payment';
 import Home from './Pages/Home/Home';
 import Login from './Pages/Login/Login';
 import Purchase from './Pages/Purchase/Purchase';
+
 import RequireAuth from './Pages/RequireAuth/RequireAuth';
 import Footer from './Pages/Shared/Footer';
 
@@ -32,6 +31,7 @@ function App() {
         <Route path="purchase/:id" element={<RequireAuth>
           <Purchase />
         </RequireAuth> } />
+        
         <Route path="dashboard" element={<RequireAuth>
           <Dashboard />
         </RequireAuth> }
@@ -41,6 +41,7 @@ function App() {
         <Route path='myorder' element={<Myorders/>}></Route>
         <Route path='manageparts' element={<ManageParts/>}></Route>
         <Route path='makeadmin' element={<MakeAdmin/>}></Route>
+        <Route path='payment/:id' element={<Payment/>}></Route>
         </Route>
       </Routes>
       <Footer/>
