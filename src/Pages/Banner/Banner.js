@@ -34,18 +34,18 @@ const Banner = () => {
                 <SwiperSlide >
                     <div className="flex items-center ">
                         <div className=" banner-text">
-                            <h1 className="text-5xl font-bold">Box Office News!</h1>
+                            <h1 className="text-5xl font-bold">Nikon EOS 8K </h1>
                             <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                             <button className="btn btn-primary">Get Started</button>
                         </div>
-                        
+
                         <img src="https://cdn-4.nikon-cdn.com/e/Q5NM96RZZo-YRYNeYvAi9beHK4x3L-8joW7yUnybX4TANUFk0STA8w==/Views/13533_D7200_v2.png" />
                     </div>
                 </SwiperSlide>
                 <SwiperSlide >
                     <div className="flex items-center ">
                         <div className=" banner-text">
-                            <h1 className="text-5xl font-bold">Box Office News!</h1>
+                            <h1 className="text-5xl font-bold">Nikon Cinema EOS 8K </h1>
                             <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                             <button className="btn btn-primary">Get Started</button>
                         </div>
@@ -55,7 +55,7 @@ const Banner = () => {
                 <SwiperSlide >
                     <div className="flex items-center ">
                         <div className=" banner-text">
-                            <h1 className="text-5xl font-bold">Box Office News!</h1>
+                            <h1 className="text-5xl font-bold">Canon all Lance</h1>
                             <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
                             <button className="btn btn-primary">Get Started</button>
                         </div>

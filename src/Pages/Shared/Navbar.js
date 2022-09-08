@@ -24,7 +24,7 @@ const Navbar = () => {
                 <Link to='/blog'>Blog</Link>
                 <Link to='/blog'>My Portfolio</Link>
 
-                {user ? < Link to="inventory">Dashboard</ Link> : <></>}
+                {user ? < Link to="dashboard">Dashboard</ Link> : <></>}
 
                 {user ? <></> : <Link to='/login'>Login</Link>}
                 {user ? <button onClick={logOut} class="btn btn-outline btn-primary mt-1">Log Out</button> : <Link to='/signup'>SignUp</Link>}
@@ -41,7 +41,7 @@ const Navbar = () => {
               <Link to='/blog'>Blog</Link>
               <Link to='/blog'>My Portfolio</Link>
 
-              {user ? < Link to="inventory">Dashboard</ Link> : <></>}
+              {user ? < Link to="dashboard">Dashboard</ Link> : <></>}
               {user ? <></> : <Link to='/login'>Login</Link>}
               {user ? <button onClick={logOut} class="btn btn-outline btn-primary mt-1">Log Out</button> : <Link to='/signup'>SignUp</Link>}
 
