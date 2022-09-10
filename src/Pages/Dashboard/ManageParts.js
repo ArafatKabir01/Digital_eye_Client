@@ -19,7 +19,6 @@ const ManageParts = () => {
                     const remaining = products.filter(product => product._id !== id);
                     setProducts(remaining);
                 })
-
         }
     }
     useEffect(()=>{
@@ -62,7 +61,6 @@ const ManageParts = () => {
                                         <th></th>
                                     </tr>
                                 </thead>
-
                                 {
                                     products.map(product => <>
                                         <tbody>
@@ -87,7 +85,6 @@ const ManageParts = () => {
                                                 </td>
                                                 <td>
                                                     {product.availableQuantity}
-
                                                 </td>
                                                 <td>{product.price}$</td>
                                                 <th>
@@ -96,16 +93,10 @@ const ManageParts = () => {
                                             </tr>
                                         </tbody>
                                     </>
-
                                     )
                                 }
-
-
-
                             </table>
                         </div>
-
-
                     </table>
                 </div>
             </div>

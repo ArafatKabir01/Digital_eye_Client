@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const UseToken = user => {
+const useTokens = (user) => {
     const [token, setToken] = useState('');
-    useEffect( () =>{
-        
-        const email = user?.user?.email;
-        
-        const currentUser = {email: email};
-        console.log(currentUser)
+
+    useEffect(()=>{
+        const email = user?.user?.email
+        const currentUser = {email : email}
         if(email){
             fetch(`http://localhost:5000/user/${email}`, {
                 method:'PUT',
@@ -25,8 +23,12 @@ const UseToken = user => {
             })
         }
 
-    }, [user]);
-    return [token];
+    },[user])
+
+    return [token]
 };
 
-export default UseToken;
+export default useTokens;
+
+
+

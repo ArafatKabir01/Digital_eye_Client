@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import img1 from '../../Images/Login_Imgs/wave.png'
 import img2 from '../../Images/Login_Imgs/undraw_drone_surveillance_kjjg.svg'
 import img3 from '../../Images/Login_Imgs/undraw_videographer_re_11sb.svg'
+import axios from 'axios';
+import useTokens from '../Hooks/useTokens';
 const Login = () => {
     const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
@@ -21,6 +23,7 @@ const Login = () => {
       loading,
       error,
     ] = useSignInWithEmailAndPassword(auth);
+    const [token] = useTokens(user || guser)
     let errorLogin;
     let cheqLoading;
     if (error || gerror) {
@@ -29,14 +32,19 @@ const Login = () => {
     if (loading || gloading) {
         cheqLoading = <div className='ml-auto mr-auto mt-2'><button className="btn btn-square  loading"></button></div>;
     }
-    if (user || guser) {
-        navigate(from, { replace: true });
+    if (token) {
+        navigate(from, { replace: true }); 
         
     }
  
-    const onSubmit = data => {
-        console.log(data.email);
-        signInWithEmailAndPassword(data.email , data.password)   
+    const onSubmit = async info => {
+        // console.log(info.email);
+        // const email = info.email
+        // const {data} = await axios.post('http://localhost:5000/login' , {email})
+        // console.log(data)
+        signInWithEmailAndPassword(info.email , info.password)
+        // localStorage.setItem("accessToken" , data)  
+        
     }
 
     

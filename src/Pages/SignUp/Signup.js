@@ -1,33 +1,36 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
-import img1 from '../../Images/Login_Imgs/wave.png'
-import img2 from '../../Images/Login_Imgs/undraw_drone_surveillance_kjjg.svg'
-import img3 from '../../Images/Login_Imgs/undraw_videographer_re_11sb.svg'
+import img1 from '../../Images/Login_Imgs/wave.png';
+import img2 from '../../Images/Login_Imgs/undraw_drone_surveillance_kjjg.svg';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
-import UseToken from '../Hooks/UseToken';
+import useTokens from '../Hooks/useTokens';
+
+
 
 const Signup = () => {
     const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const location = useLocation()
-    let from = location.state?.from?.pathname || "/";
     const [
         createUserWithEmailAndPassword,
         user,
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
-    const [updateProfile] = useUpdateProfile(auth)
+    
+    const location = useLocation()
+    let from = location.state?.from?.pathname || "/";
+
+    const [token] = useTokens( user || guser)
+
     const navigate = useNavigate()
     let errorLogin;
     let cheqLoading;
+
     console.log(user)
 
-    const [token]  = UseToken(user || guser);
+  
 
     if (error || gerror) {
         errorLogin = <p className='text-red-600'>{error?.message || gerror?.message}</p>
@@ -36,20 +39,20 @@ const Signup = () => {
         cheqLoading = <div className='ml-auto mr-auto mt-2'><button className="btn btn-square  loading"></button></div>;
     }
     if (token) {
-        navigate(from, { replace: true });
+        navigate(from, { replace: true } || '/') ;
     }
 
     let passwordError;
-    const onSubmit = async data => {
+    const onSubmit = async (data) => {
         console.log(data)
         if (data.password === data.confirmPassword) {
             await createUserWithEmailAndPassword(data.email, data.password,)
-            await updateProfile({ displayName: data.displayName })
-            navigate('/')
+            // await updateProfile({ displayName: data.displayName })
+            
 
         }
         else{
-         passwordError = <p>Password Don't Match</p>
+         passwordError = `<p>Password Don't Match</p>`
         }
 
     }
