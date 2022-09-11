@@ -13,6 +13,7 @@ import Payment from './Pages/Dashboard/Payment';
 import Users from './Pages/Dashboard/Users';
 import Home from './Pages/Home/Home';
 import Login from './Pages/Login/Login';
+import RequireAdmin from './Pages/Login/RequireAdmin';
 import Purchase from './Pages/Purchase/Purchase';
 
 import RequireAuth from './Pages/RequireAuth/RequireAuth';
@@ -43,7 +44,7 @@ function App() {
           <Route path='manageorder' element={<ManageOrder />}></Route>
           <Route path='myorder' element={<Myorders />}></Route>
           <Route path='manageparts' element={<ManageParts />}></Route>
-          <Route path='users' element={<Users />}></Route>
+          <Route path='users' element={<RequireAdmin><Users /></RequireAdmin>}></Route>
           <Route path='payment/:id' element={<Payment />}></Route>
         </Route>
       </Routes>
