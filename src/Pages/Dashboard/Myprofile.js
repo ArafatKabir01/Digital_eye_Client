@@ -4,7 +4,7 @@ import auth from '../../firebase.init';
 
 const Myprofile = () => {
     const [user, loading, error] = useAuthState(auth);
-    console.log(user.photoURL)
+    console.log(user)
     return (
         <div>
             <h2>My profile</h2>

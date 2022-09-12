@@ -9,6 +9,7 @@ import ManageOrder from './Pages/Dashboard/ManageOrder';
 import ManageParts from './Pages/Dashboard/ManageParts';
 import Myorders from './Pages/Dashboard/Myorders';
 import Myprofile from './Pages/Dashboard/Myprofile';
+import Myreview from './Pages/Dashboard/Myreview';
 import Payment from './Pages/Dashboard/Payment';
 import Users from './Pages/Dashboard/Users';
 import Home from './Pages/Home/Home';
@@ -40,6 +41,7 @@ function App() {
           <Dashboard />
         </RequireAuth>}
         ><Route path='myprofile' index element={<Myprofile></Myprofile>}></Route>
+          <Route path='myReviews'  element={<Myreview />}></Route>
           <Route path='addproduct' element={<Addproduct />}></Route>
           <Route path='manageorder' element={<ManageOrder />}></Route>
           <Route path='myorder' element={<Myorders />}></Route>

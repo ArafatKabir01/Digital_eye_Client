@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import img1 from '../../Images/Login_Imgs/wave.png';
 import img2 from '../../Images/Login_Imgs/undraw_drone_surveillance_kjjg.svg';
@@ -18,6 +18,7 @@ const Signup = () => {
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
+    const [passwordError , setPasswordError] = useState("")
     
     const location = useLocation()
     let from = location.state?.from?.pathname || "/";
@@ -42,17 +43,16 @@ const Signup = () => {
         navigate(from, { replace: true } || '/') ;
     }
 
-    let passwordError;
+   
     const onSubmit = async (data) => {
         console.log(data)
         if (data.password === data.confirmPassword) {
             await createUserWithEmailAndPassword(data.email, data.password,)
             // await updateProfile({ displayName: data.displayName })
-            
 
         }
         else{
-         passwordError = `<p>Password Don't Match</p>`
+            setPasswordError("Password Don't Match")
         }
 
     }
@@ -75,19 +75,11 @@ const Signup = () => {
                                         <i class="fas fa-user"></i>
                                     </div>
                                     <div class="div">
-                                        <input placeholder='First Name' {...register("firstName", { required: true})} type="text" class="input" />
+                                        <input placeholder='User Name' {...register("displayName", { required: true})} type="text" class="input" />
                                         {errors.displayName?.type === 'required' && "Name is required"}
                                     </div>
                                 </div>
-                                <div class="input-div one">
-                                    <div class="i">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-                                    <div class="div">
-                                        <input placeholder='Last Name' {...register("lastName", { required: true})} type="text" class="input" />
-                                        {errors.displayName?.type === 'required' && "Name is required"}
-                                    </div>
-                                </div>
+                                
                                 <div class="input-div one">
                                     <div class="i">
                                         <i class="fas fa-user"></i>
@@ -119,8 +111,7 @@ const Signup = () => {
                                 <input type="submit" class="login-btn" value="SignUp" />
                                 {errorLogin}
                                 {cheqLoading}
-                                {passwordError}
-                                {passwordError}
+                               
                                 <div className="divider">OR</div>
                             </form>
                             <div className="form-control p-4 ">

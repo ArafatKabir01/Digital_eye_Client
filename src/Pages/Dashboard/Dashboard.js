@@ -24,6 +24,7 @@ const Dashboard = () => {
                     <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
                         {/* <!-- Sidebar content here --> */}
                         <Link  to='myprofile'><li><a>My Profile</a></li></Link>
+                        {!admin && <Link  to='myReviews'><li><a>My Reviews</a></li></Link>}
                         {admin && <Link to='addproduct'><li><a>Add Product</a></li></Link>}
                         { admin &&  <Link to='manageparts'><li><a>Manage Parts</a></li></Link>}
                         { admin &&<Link to='manageorder'><li><a>Manage Order</a></li></Link>}

@@ -1,6 +1,7 @@
 
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutForm = ({orders}) => {
     const stripe = useStripe()
@@ -10,9 +11,10 @@ const CheckoutForm = ({orders}) => {
     const [processing, setProcessing] = useState(false);
     const [transactionId, setTransactionId] = useState('');
     const [clientSecret, setClientSecret] = useState('');
+    const navigate = useNavigate();
     
     
-    const {price , email} = orders[0]
+    const {price , email ,_id} = orders[0]
     console.log(price,email)
 
     useEffect(() => {
@@ -76,7 +78,28 @@ const CheckoutForm = ({orders}) => {
             setTransactionId(paymentIntent.id);
             console.log(paymentIntent);
             setSuccess('Congrats! Your payment is completed.')
+
+            //store payment on database
+            const payment = {
+                order: _id,
+                transactionId: paymentIntent.id
+            }
+            fetch(`http://localhost:5000/buying/${_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'content-type': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: JSON.stringify(payment)
+            }).then(res=>res.json())
+            .then(data => {
+                setProcessing(false);
+                console.log(data);
+            })
         }
+        navigate(`/dashboard/myOrder`)
+
+
 
     }
     return (
@@ -107,8 +130,10 @@ const CheckoutForm = ({orders}) => {
                 
             }
             {
-               success && <p className='text-green-900'>{success}</p>
-                
+               success && <div className='text-green-500'>
+               <p>{success}  </p>
+               <p>Your transaction Id: <span className="text-orange-500 font-bold">{transactionId}</span> </p>
+           </div>
             }
         </>
     );
