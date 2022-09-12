@@ -66,7 +66,7 @@ const Myorders = () => {
                                                 </button>
                                             </div>
                                         </div></th>
-                                        <th></th>
+                                        <th>Payment</th>
                                     </tr>
                                 </thead>
 
