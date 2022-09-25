@@ -1,7 +1,7 @@
 .review-swiper {
   width: 400px;
   height: 520px;
-  margin-top: -1px;
+  margin-top: 1px;
   padding-top: 10px;
   margin-bottom: 300px;
   
@@ -15,4 +15,14 @@
   font-size: 22px;
   font-weight: bold;
   color: #fff;
+}
+@media only screen and (max-width: 500px) {
+  .swiper {
+  width: 220px;
+  height: 400px;
+  margin-bottom: 150px;
+  }
+  .review-SwiperSlide{
+    font-size: 12px;
+  }
 }

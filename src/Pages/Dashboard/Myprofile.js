@@ -13,8 +13,8 @@ const Myprofile = () => {
                     <img src={user.photoURL} />
                 </div>
                 <h2 className="card-title ps-4">{user.displayName}</h2>
+                <button className="btn btn-primary">Button</button>
             </div>
-            
         </div>
     );
 };
