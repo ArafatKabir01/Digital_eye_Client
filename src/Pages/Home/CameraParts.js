@@ -16,7 +16,7 @@ const CameraParts = () => {
     }
     const [admin] = useAdmin(user);
     return (
-        <div  className='bg-base-200 '>
+        <div  className='bg-base-200 reviews'>
             <h2 className='text-5xl font-bold text-center mb-8 pt-12'>Camera Parts</h2>
             <div className='container m-auto  flex flex-wrap gap-4 justify-center pb-8'>
             {

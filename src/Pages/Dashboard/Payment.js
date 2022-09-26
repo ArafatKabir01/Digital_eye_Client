@@ -11,7 +11,7 @@ import { loadStripe } from '@stripe/stripe-js';
 const stripePromise = loadStripe('pk_test_51LfiUIIj1Rdiz6xlLD0vk4bSxe71VHtlf6ixWP5XOmfCoZ5mGznD48jxMBy8RVuyG11rlXsAEzTRhw8p4TjMu8mr00vSizzLCb');
 const Payment = () => {
     const { id } = useParams();
-    const url = `http://localhost:5000/myOrder/${id}`;
+    const url = `https://secure-woodland-36445.herokuapp.com/myOrder/${id}`;
 
     const { data: orders, isLoading } = useQuery(['orders', id], () => fetch(url, {
         method: 'GET',

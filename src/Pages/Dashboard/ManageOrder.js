@@ -10,7 +10,7 @@ const ManageOrder = () => {
     const [user] = useAuthState(auth)
     const [admin] = useAdmin(user)
     
-    const { data: paidOrders, isLoading, refetch } = useQuery('paidOrders', () => fetch('http://localhost:5000/orderparts', {
+    const { data: paidOrders, isLoading, refetch } = useQuery('paidOrders', () => fetch('https://secure-woodland-36445.herokuapp.com/orderparts', {
         method: 'GET',
         headers:{
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -25,7 +25,7 @@ const ManageOrder = () => {
     const handleDelete = id => {
         const proceed = window.confirm('are you sure?')
         if (proceed) {
-            const url = `http://localhost:5000/myOrder/${id}`
+            const url = `https://secure-woodland-36445.herokuapp.com/myOrder/${id}`
             fetch(url, {
                 method: "DELETE"
             })

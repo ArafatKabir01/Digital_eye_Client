@@ -11,7 +11,7 @@ const Myorders = () => {
     useEffect(() => {
         const getOrders = async() =>{
             const email = user.email
-            const url = `http://localhost:5000/myOrder?email=${email}`
+            const url = `https://secure-woodland-36445.herokuapp.com/myOrder?email=${email}`
             const {data} = await axios.get(url , {
                 headers : {
                     authorization : `bearer ${localStorage.getItem("accessToken")}`
@@ -28,7 +28,7 @@ const Myorders = () => {
     const handleDelete = id => {
         const proceed = window.confirm('are you sure?')
         if (proceed) {
-            const url = `http://localhost:5000/myOrder/${id}`
+            const url = `https://secure-woodland-36445.herokuapp.com/myOrder/${id}`
             fetch(url, {
                 method: "DELETE"
             })

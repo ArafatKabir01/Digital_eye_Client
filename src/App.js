@@ -26,7 +26,7 @@ import Signup from './Pages/SignUp/Signup';
 
 function App() {
   return (
-    <div  >
+    <div data-theme="luxury"  >
       <Navbar />
       
       <Routes>

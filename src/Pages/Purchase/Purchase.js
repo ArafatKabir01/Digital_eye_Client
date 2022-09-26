@@ -11,7 +11,7 @@ const Purchase = () => {
     const [product, setProduct] = useState([])
     const navigate = useNavigate()
     useEffect(() => {
-        fetch(`http://localhost:5000/part/${id}`)
+        fetch(`https://secure-woodland-36445.herokuapp.com/part/${id}`)
             .then(res => res.json())
             .then(data => setProduct(data))
     }, []);
@@ -35,7 +35,7 @@ const Purchase = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data)
-        const url = `http://localhost:5000/customerorder`
+        const url = `https://secure-woodland-36445.herokuapp.com/customerorder`
         fetch(url, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
