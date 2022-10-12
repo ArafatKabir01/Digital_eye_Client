@@ -25,10 +25,10 @@ const Banner = () => {
                     shadowOffset: 50,
                     shadowScale: 1.54,
                 }}
-                // autoplay={{
-                //     delay: 3000,
-                //     disableOnInteraction: false,
-                // }}
+                autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: false,
+                }}
                 pagination={true}
                 modules={[Autoplay, EffectCube, Pagination]}
 
