@@ -14,11 +14,8 @@ const Banner = () => {
     return (
         <div class="hero svg  ">
         <div class="hero-content text-center">
-        <div className="container m-auto mb-1 md:mb-10 lg:mb-36 top-5">
-            <br/>
-            <br/>
-            <br/>
-            <br/><br/><br/><br/><br/><br/>
+        <div className="container m-auto mb-1 md:mb-10 lg:mb-36 ">
+           
             <Swiper
                 effect={"cube"}
                 grabCursor={true}
