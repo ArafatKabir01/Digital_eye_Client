@@ -3,6 +3,8 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import auth from '../../firebase.init';
+import axios from 'axios';
+import Loading from "../Shared/Loading"
 
 const Purchase = () => {
     let { id } = useParams()
@@ -11,7 +13,7 @@ const Purchase = () => {
     const [product, setProduct] = useState([])
     const navigate = useNavigate()
     useEffect(() => {
-        fetch(`https://secure-woodland-36445.herokuapp.com/part/${id}`)
+        fetch(`https://manufacturer-0397.onrender.com/part/${id}`)
             .then(res => res.json())
             .then(data => setProduct(data))
     }, []);
@@ -20,22 +22,12 @@ const Purchase = () => {
         console.log(product)
 
     }
-    // const [count, setCount] = useState(20)
-    // const handleIncrise = () => {
-    //     const newCount = count + 1;
-    //     setCount(newCount)
 
-
-    // }
-    // const handleDicrise = () => {
-    //     const newCount = count - 1;
-    //     setCount(newCount)
-
-    // }
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data)
-        const url = `https://secure-woodland-36445.herokuapp.com/customerorder`
+        
+        const url = `https://manufacturer-0397.onrender.com/customerorder`
         fetch(url, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
@@ -45,9 +37,25 @@ const Purchase = () => {
             .then(res => res.json())
             .then(result => console.log(result))
 
-        if (data.title && data.quantity) {
-            navigate('/dashboard/myorder')
-        }
+       
+        const getOrders = async() =>{
+              const email = user.email
+              const url = `https://manufacturer-0397.onrender.com/myOrder?email=${email}`
+              const {data , refatch} = await axios.get(url , {
+                  headers : {
+                      authorization : `bearer ${localStorage.getItem("accessToken")}`
+                  }
+              } )
+              const newData =  data.filter(d => !d.paid)
+              
+              localStorage.setItem('totalOrder', newData.length)
+             
+          }
+          getOrders()
+        //   if (data.title && data.quantity) {
+        //     navigate('/dashboard/myorder')
+          
+        // }
 
 
     };

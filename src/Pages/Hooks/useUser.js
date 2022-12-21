@@ -5,7 +5,7 @@ const useUser = () => {
     const [users, setUsers] = useState([])
     useEffect(() => {
         const getUsers = async () => {
-            const url = `https://secure-woodland-36445.herokuapp.com/users`
+            const url = `https://manufacturer-0397.onrender.com/users`
             const { data } = await axios.get(url, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem("accessToken")}`

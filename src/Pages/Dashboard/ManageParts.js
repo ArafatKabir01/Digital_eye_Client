@@ -9,7 +9,7 @@ const ManageParts = () => {
     const handleDelete = id => {
         const proceed = window.confirm('are you sure?')
         if (proceed) {
-            const url = `https://secure-woodland-36445.herokuapp.com/parts/${id}`
+            const url = `https://manufacturer-0397.onrender.com/parts/${id}`
             fetch(url, {
                 method: "DELETE"
             })
@@ -23,7 +23,7 @@ const ManageParts = () => {
     }
     useEffect(()=>{
         console.log('ok')
-        fetch("https://secure-woodland-36445.herokuapp.com/allProducts")
+        fetch("https://manufacturer-0397.onrender.com/allProducts")
         .then(res => res.json())
         .then(data => {
             const match = data.filter(d => d.title.includes(seacrchText))

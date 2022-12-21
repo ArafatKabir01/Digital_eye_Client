@@ -40,7 +40,7 @@ const Login = () => {
     const onSubmit = async info => {
         // console.log(info.email);
         // const email = info.email
-        // const {data} = await axios.post('https://secure-woodland-36445.herokuapp.com/login' , {email})
+        // const {data} = await axios.post('https://manufacturer-0397.onrender.com/login' , {email})
         // console.log(data)
         signInWithEmailAndPassword(info.email , info.password)
         // localStorage.setItem("accessToken" , data)  

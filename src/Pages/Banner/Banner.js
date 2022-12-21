@@ -19,12 +19,12 @@ const Banner = () => {
             <Swiper
                 effect={"cube"}
                 grabCursor={true}
-                cubeEffect={{
-                    shadow: true,
-                    slideShadows: true,
-                    shadowOffset: 50,
-                    shadowScale: 1.54,
-                }}
+                // cubeEffect={{
+                //     shadow: true,
+                //     // slideShadows: true,
+                //     shadowOffset: 50,
+                //     shadowScale: 1.54,
+                // }}
                 autoplay={{
                     delay: 3000,
                     disableOnInteraction: false,
@@ -62,7 +62,7 @@ const Banner = () => {
                 </SwiperSlide>
                 <SwiperSlide >
                 <div className="hero ">
-                        <div className="hero-content w-full md:w-screen lg:w-screen flex-col lg:flex-row-reverse">
+                        <div className="hero-content w-full md:w-screen lg:w-screen flex-col lg:flex-row-reverse mt-20">
                             <img src="https://i.ibb.co/pjWLC6m/kisspng-nikon-d3200-nikkor-camera-lens-prime-lens-camera-flyer-5b496f114a8e12-7585494315315392173054.png" className="" />
                             <div className="swiper-text">
                             <h1 className="text-2xl md:text-5xl lg:text-5xl font-bold">Canon all Lance</h1>

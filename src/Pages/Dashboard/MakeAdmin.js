@@ -7,7 +7,7 @@ const MakeAdmin = ({ user , refetch}) => {
     
     console.log(email)
     const makeAdmin = () => {
-        const url = `https://secure-woodland-36445.herokuapp.com/user/admin/${email}`
+        const url = `https://manufacturer-0397.onrender.com/user/admin/${email}`
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -25,7 +25,7 @@ const MakeAdmin = ({ user , refetch}) => {
     const handleDelete = id => {
         const proceed = window.confirm('are you sure?')
         if (proceed) {
-            const url = `https://secure-woodland-36445.herokuapp.com/users/${id}`
+            const url = `https://manufacturer-0397.onrender.com/users/${id}`
             fetch(url, {
                 method: "DELETE"
             })

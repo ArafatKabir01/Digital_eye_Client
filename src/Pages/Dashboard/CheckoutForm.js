@@ -18,7 +18,7 @@ const CheckoutForm = ({orders}) => {
     console.log(price,email)
 
     useEffect(() => {
-        fetch('https://secure-woodland-36445.herokuapp.com/create-payment-intent', {
+        fetch('https://manufacturer-0397.onrender.com/create-payment-intent', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -84,7 +84,7 @@ const CheckoutForm = ({orders}) => {
                 order: _id,
                 transactionId: paymentIntent.id
             }
-            fetch(`https://secure-woodland-36445.herokuapp.com/buying/${_id}`, {
+            fetch(`https://manufacturer-0397.onrender.com/buying/${_id}`, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json',

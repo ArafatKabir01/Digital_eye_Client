@@ -7,7 +7,7 @@ import MakeAdmin from './MakeAdmin';
 
 const Users = () => {
     // const [users, setUsers] = useUser([])
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://secure-woodland-36445.herokuapp.com/users', {
+    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://manufacturer-0397.onrender.com/users', {
         method: 'GET',
         headers:{
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
