@@ -3,9 +3,9 @@ import React from 'react';
 const ContractUs = () => {
     return (
         <div>
-            <div className="hero min-h-screen reviews-co">
-                <div className="hero-overlay bg-opacity-30"></div>
-                <div  class="hero min-h-screen bg-opacity-60 ">
+            <div className="hero min-h-screen">
+                <div className=""></div>
+                <div  class="hero min-h-screen  ">
                 <div class="hero-content flex-col lg:flex-row-reverse">
                     <div class="text-center lg:text-left">
                         <h1 class="text-5xl font-bold text-white	">Contract   With Us</h1>

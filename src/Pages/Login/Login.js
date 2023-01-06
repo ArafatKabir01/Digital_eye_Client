@@ -1,104 +1,126 @@
-import React from 'react';
-import './Login.css';
+import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import auth from '../../firebase.init';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
-import img1 from '../../Images/Login_Imgs/wave.png'
-import img2 from '../../Images/Login_Imgs/undraw_drone_surveillance_kjjg.svg'
-import img3 from '../../Images/Login_Imgs/undraw_videographer_re_11sb.svg'
-import axios from 'axios';
+import auth from '../../firebase.init';
+import img from '../../Images/pexels-photo-3721941.jpeg'
 import useTokens from '../Hooks/useTokens';
 const Login = () => {
+    const [email, setEmail] = useState('');
     const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
+    const [sendPasswordResetEmail, sending, perror] = useSendPasswordResetEmail(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
-    
+    const [
+        signInWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useSignInWithEmailAndPassword(auth);
+    const [token] = useTokens(user, loading)
     const navigate = useNavigate()
     const location = useLocation()
     let from = location.state?.from?.pathname || "/";
-    const [
-      signInWithEmailAndPassword,
-      user,
-      loading,
-      error,
-    ] = useSignInWithEmailAndPassword(auth);
-    const [token] = useTokens(user || guser)
     let errorLogin;
     let cheqLoading;
-    if (error || gerror) {
-      errorLogin = <p className='text-red-600'>{error?.message || gerror?.message }</p>
+    if (error) {
+        errorLogin = <p className='text-red-600'>{error?.message}</p>
     }
-    if (loading || gloading) {
+    if (loading) {
         cheqLoading = <div className='ml-auto mr-auto mt-2'><button className="btn btn-square  loading"></button></div>;
     }
-    if (token) {
-        navigate(from, { replace: true }); 
-        
+    let passwordError;
+    const onSubmit = async data => {
+        const email = data.email
+        const password = data.password
+        await signInWithEmailAndPassword(email, password);
+
     }
- 
-    const onSubmit = async info => {
-        // console.log(info.email);
-        // const email = info.email
-        // const {data} = await axios.post('https://manufacturer-0397.onrender.com/login' , {email})
-        // console.log(data)
-        signInWithEmailAndPassword(info.email , info.password)
-        // localStorage.setItem("accessToken" , data)  
-        
+    if (token) {
+        navigate(from, { replace: true });
+
     }
 
-    
+
+
+
 
     return (
-        <div>
-            <section>
-                <img class="wave" src={img1} />
-                <div class="login-container">
-                    <div class="img">
-                        <img src={img2} />
-                    </div>
-                    <div class="login-content">
-                        <div>
-                            <form onSubmit={handleSubmit(onSubmit)} action="index.html">
-                                <img src={img3} />
-                                <h2 className='text-5xl text-white font-bold text-center mb-8 pt-12'>Welcome</h2>
-                                <div class="input-div one">
-                                    <div class="i">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-                                    <div class="div">
-                                        <input placeholder='Your Email' {...register("email", { required: true, maxLength: 20 })} type="email" class="input" />
-                                        {errors.email?.type === 'required' && "Email is required"}
+        <div  style={{ backgroundImage: `url("${img}")` }} className="bg-no-repeat bg-center bg-cover" >
+            <div className=" hero-overlay bg-opacity-40 ">
+                <div className='container hero min-h-screen m-auto'>
+                    <div className=" flex-col lg:flex-row-reverse p-4 w-full md:w-5/12 lg:w-4/12 ">
+                        <div data-aos="zoom-in" style={{ backgroundImage: `url("${img}")` }} className=" flex-shrink-0 bg-no-repeat bg-center bg-cover  shadow-2xl rounded  ">
+
+                            <form onSubmit={handleSubmit(onSubmit)} className="card-body w-full">
+                                <h2 className='font-bold text-2xl text-center '>Login Here</h2>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Email</span>
+                                    </label>
+                                    <input {...register("email", { required: true })} type="email" placeholder="email" className="input input-bordered" />
+                                    {errors.email?.type === 'required' && <p className='text-red-600'>Email is required</p>}
+                                </div>
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Password</span>
+                                    </label>
+                                    <input className="input input-bordered" type="password" placeholder='Password' name="password" {...register("password", { required: "Password is required", minLength: { value: 8 } })}></input>
+                                    <div className='text-red-600'>{errors.password?.type === 'minLength' && <p className='text-red-600'>Password must be more than 8 characters</p>}</div>
+
+
+                                    <p>{errors.password?.message}</p>
+                                    <label className="label">
+                                        <span className="label-text-alt text-xl ">Do not have an Account? <Link className="link link-hover text-emerald-500" to='/signup '>SignUp Please</Link></span>
+                                    </label>
+                                    <label htmlFor="my-modal" className="link link-hover text-emerald-900">Forget Password?</label>
+                                    {/* Put this part before </body> tag */}
+                                    <input type="checkbox" id="my-modal" className="modal-toggle" />
+                                    <div className="modal">
+                                        <div className="modal-box">
+                                            <div className="form-control">
+                                                <label className="label">
+                                                    <span className="label-text">Email</span>
+                                                </label>
+                                                <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="email" className="input input-bordered" />
+                                            </div>
+                                            <br />
+                                            <button className='hover:text-emerald-900'
+                                                onClick={async () => {
+                                                    const success = await sendPasswordResetEmail(email);
+                                                    if (success) {
+                                                        alert('Sent email');
+                                                    }
+                                                }}
+                                            >
+                                                Reset password
+                                            </button>
+                                            <div className="modal-action">
+                                                <label htmlFor="my-modal" className="btn">Cancel</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="input-div pass">
-                                    <div class="i">
-                                        <i class="fas fa-lock"></i>
+
+                                <div className="flex flex-col w-full border-opacity-50">
+                                    <div className="form-control mt-6 px-8 ">
+                                        <button className="btn btn-primary border-0 rounded bg-emerald-500">Login</button>
                                     </div>
-                                    <div class="div">
-                                        <input placeholder='Password' {...register("password", { required: true, maxLength: 20 })} type="password" class="input" />
-                                        {errors.password && "Password is required"}
-                                    </div>
-                                </div>
-                                <div className='flex justify-between'>
-                                    <Link to='/signup' className='login-link' >Do not have account?</Link>
-                                    <a className='login-link' href="#">Forgot Password?</a>
+                                    {errorLogin}
+                                    {cheqLoading}
+                                    {passwordError}
 
                                 </div>
-
-                                <input type="submit" class="login-btn" value="Login" />
-                                {errorLogin}
-                                {cheqLoading}
-                                <div className="divider">OR</div>
                             </form>
+
                             <div className="form-control p-4 ">
                                 <button onClick={() => signInWithGoogle()} className="btn btn-outline btn-warning">Google Login</button>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
-            </section>
+
+            </div>
         </div>
     );
 };

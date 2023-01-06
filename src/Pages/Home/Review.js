@@ -11,7 +11,7 @@ import './Review.css'
 import { EffectCards } from "swiper";
 const Review = () => {
     return (
-        <div className='reviews'>
+        <div >
             <h2  className='text-5xl font-bold text-center  mb-8 pt-12'>Reviews</h2>
             <Swiper
             

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
-import img1 from '../../Images/Login_Imgs/wave.png';
-import img2 from '../../Images/Login_Imgs/undraw_drone_surveillance_kjjg.svg';
+import img from '../../Images/pexels-photo-3721941.jpeg'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
@@ -10,118 +9,132 @@ import useTokens from '../Hooks/useTokens';
 
 
 const Signup = () => {
-    const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
+    const [usersData , setUsersData] = useState({})
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
     const [
         createUserWithEmailAndPassword,
         user,
         loading,
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
-    const [passwordError , setPasswordError] = useState("")
-    
-    const location = useLocation()
-    let from = location.state?.from?.pathname || "/";
-
-    const [token] = useTokens( user || guser)
-
+    const [token] = useTokens(user)
     const navigate = useNavigate()
     let errorLogin;
     let cheqLoading;
 
-    console.log(user)
-
-  
-
-    if (error || gerror) {
-        errorLogin = <p className='text-red-600'>{error?.message || gerror?.message}</p>
+    if (error) {
+        errorLogin = <p className='text-red-600'>Email is already taken</p>
     }
-    if (loading || gloading) {
-        cheqLoading = <div className='ml-auto mr-auto mt-2'><button className="btn btn-square  loading"></button></div>;
+    if (loading) {
+        cheqLoading = <div className='ml-auto mr-auto mt-2'><button className="btn btn-square bg-none loading"></button></div>;
     }
     if (token) {
-        navigate(from, { replace: true } || '/') ;
+        const userData = {
+            displayName : usersData.displayName,
+            email: usersData.email,
+            phoneNumber:usersData.phoneNumber,
+            place : usersData.place
+        }
+         fetch('https://registrar-app.onrender.com/alluser',{
+            method : 'POST',
+            headers : {
+                'content-type' : 'application/json'
+            },
+            body:JSON.stringify(userData)
+
+        } )
+        .then(res => res.json())
+        .then(data => console.log(data))
+        navigate('/')
+
+        
     }
-
-   
-    const onSubmit = async (data) => {
+    let passwordError;
+    const onSubmit = async data => {
+        await createUserWithEmailAndPassword(data.email, data.password);
         console.log(data)
-        if (data.password === data.confirmPassword) {
-            await createUserWithEmailAndPassword(data.email, data.password,)
-            // await updateProfile({ displayName: data.displayName })
-
-        }
-        else{
-            setPasswordError("Password Don't Match")
-        }
-
+        setUsersData(data)  
     }
 
     return (
-        <div>
-            <section>
-                <img class="wave" src={img1} />
-                <div class="login-container">
-                    <div class="img">
-                        <img src={img2} />
-                    </div>
-                    <div class="login-content">
-                        <div>
-                            <form onSubmit={handleSubmit(onSubmit)} action="index.html">
-                                {/* <img src={img3} /> */}
-                                <h2 className='text-5xl text-white font-bold text-center mb-8 pt-12'>Welcome</h2>
-                                <div class="input-div one">
-                                    <div class="i">
-                                        <i class="fas fa-user"></i>
+        <div style={{ backgroundImage: `url("${img}")` }} className="bg-no-repeat bg-center  bg-cover " >
+            <div className=" hero-overlay bg-opacity-40 ">
+                <div className='container hero min-h-screen m-auto'>
+                    <div className=" flex-col lg:flex-row-reverse p-4 w-full md:w-7/12 lg:w-7/12 ">
+                        <div data-aos="zoom-in" style={{ backgroundImage: `url("${img}")` }} className=" flex-shrink-0 bg-no-repeat bg-center bg-cover  shadow-2xl rounded  ">
+
+                            <form onSubmit={handleSubmit(onSubmit)} className="card-body w-full">
+                                <h2 className='font-bold text-2xl text-center '>Register Here</h2>
+                                <div className='grid grid-cols md:grid-cols-2 lg:grid-cols-2 gap-3'>
+                                    <div>
+                                        <div className="form-control  ">
+                                            <label className="label">
+                                                <span className="label-text">Name</span>
+                                            </label>
+                                            <input {...register("displayName", { required: true })} type="text" placeholder="Name" className="input input-bordered" />
+                                            {errors.displayName?.type === 'required' && <p className='text-red-600'>Name is required</p>}
+                                        </div>
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Email</span>
+                                            </label>
+                                            <input {...register("email", { required: true })} type="email" placeholder="email" className="input input-bordered" />
+                                            {errors.email?.type === 'required' && <p className='text-red-600'>Email is required</p>}
+                                        </div>
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Password</span>
+                                            </label>
+                                            <input className="input input-bordered" type="password" placeholder='Password' name="password" {...register("password", { required: "Password is required", minLength: { value: 8 } })}></input>
+                                            <div className='text-red-600'>{errors.password?.type === 'minLength' && <p className='text-red-600'>Password must be more than 8 characters</p>}</div>
+                                            <p>{errors.password?.message}</p>
+                                        </div>
                                     </div>
-                                    <div class="div">
-                                        <input placeholder='User Name' {...register("displayName", { required: true})} type="text" class="input" />
-                                        {errors.displayName?.type === 'required' && "Name is required"}
+                                    <div>
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Phone Number</span>
+                                            </label>
+                                            <input {...register("phoneNumber", { required: true })} type="number" placeholder="Phone Number" className="input input-bordered" />
+                                            {errors.number?.type === 'required' && <p className='text-red-600'>Phone Number is required</p>}
+                                        </div>
+                                        <div className="form-control">
+                                            <label className="label">
+                                                <span className="label-text">Your Location</span>
+                                            </label>
+                                            <input {...register("place", { required: true })} type="text" placeholder="Your Location" className="input input-bordered" />
+                                            {errors.displayName?.type === 'required' && <p className='text-red-600'>Place is required</p>}
+                                        </div>
                                     </div>
                                 </div>
-                                
-                                <div class="input-div one">
-                                    <div class="i">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-                                    <div class="div">
-                                        <input placeholder='E-mail' {...register("email", { required: true, maxLength: 20 })} type="email" class="input" />
-                                        {errors.email?.type === 'required' && "Email is required"}
-                                    </div>
+                                <div className="form-control">
+
+                                    <label className="label ">
+                                        <span className="label-text-alt text-xl">Already have an Account? <Link className="link link-hover text-emerald-500" to='/login'>Login Please</Link></span>
+                                    </label>
                                 </div>
-                                <div class="input-div pass">
-                                    <div class="i">
-                                        <i class="fas fa-lock"></i>
+
+                                <div className="flex flex-col w-full border-opacity-50">
+                                    <div className="form-control mt-6 px-8 ">
+                                        <button className="btn btn-primary border-0 rounded bg-emerald-500">SignUp</button>
                                     </div>
-                                    <div class="div">
-                                        <input placeholder='Password' {...register("password", { required: true, maxLength: 20 })} type="password" class="input" />
-                                        {errors.password?.type === 'required' && "Password is required"}
-                                    </div>
+                                    {errorLogin}
+                                    {cheqLoading}
+                                    {passwordError}
+                                    
                                 </div>
-                                <div class="input-div pass">
-                                    <div class="i">
-                                        <i class="fas fa-lock"></i>
-                                    </div>
-                                    <div class="div">
-                                        <input placeholder='Confirm Password' {...register("confirmPassword", { required: true, maxLength: 20 })} type="password" class="input" />
-                                        {passwordError}
-                                    </div>
-                                </div>
-                                <Link to='/login' className='login-link' >Already have an account?</Link>
-                                <input type="submit" class="login-btn" value="SignUp" />
-                                {errorLogin}
-                                {cheqLoading}
-                               
-                                <div className="divider">OR</div>
                             </form>
+
                             <div className="form-control p-4 ">
                                 <button onClick={() => signInWithGoogle()} className="btn btn-outline btn-warning">Google Login</button>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
-            </section>
+
+            </div>
         </div>
     );
 };
