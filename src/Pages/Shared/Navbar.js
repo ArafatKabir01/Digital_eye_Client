@@ -51,7 +51,7 @@ const Navbar = () => {
             </ul>
           </div>
           <div className=' justify-items-center items-center w-80 h-26 flex'>
-            <h1><a className=" p-3 md:p-7 lg:p-full inline-block align-middle text-3xl font-bold  text-black 	">BASS BOSS</a></h1>
+            <h1><a className=" p-3 md:p-7 lg:p-full inline-block align-middle text-[30%] font-bold  text-black 	">BASS BOSS</a></h1>
           </div>
 
         </div>
