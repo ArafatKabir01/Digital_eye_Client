@@ -23,10 +23,11 @@ import Footer from './Pages/Shared/Footer';
 import Navbar from './Pages/Shared/Navbar';
 import Signup from './Pages/SignUp/Signup';
 
-
+import musicBg from '../src/Images/1162652.jpg'
 function App() {
   return (
-    <div data-theme="none"  >
+    <div data-theme="none" style={{ backgroundImage: `url(${musicBg})` }} className=" bg-fixed bg-center
+    bg-no-repeat bg-cover"  >
       <Navbar />
       
       <Routes>

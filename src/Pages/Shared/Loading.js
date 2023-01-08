@@ -1,9 +1,9 @@
 import React from 'react';
-
+import './Loading.css'
 const Loading = () => {
     return (
         <div>
-        <button class="btn loading">loading</button>
+        <div className="lds-ripple h-screen z-20"><div></div><div></div></div>
     </div>
     );
 };

@@ -62,7 +62,7 @@ const Signup = () => {
             <div className=" hero-overlay bg-opacity-40 ">
                 <div className='container hero min-h-screen m-auto'>
                     <div className=" flex-col lg:flex-row-reverse p-4 w-full md:w-7/12 lg:w-7/12 ">
-                        <div data-aos="zoom-in" style={{ backgroundImage: `url("${img}")` }} className=" flex-shrink-0 bg-no-repeat bg-center bg-cover  shadow-2xl rounded  ">
+                        <div data-aos="zoom-in" style={{ backgroundImage: `url("${img}")` }} className=" flex-shrink-0 bg-no-repeat bg-center bg-cover  shadow-2xl rounded my-12 ">
 
                             <form onSubmit={handleSubmit(onSubmit)} className="card-body w-full">
                                 <h2 className='font-bold text-2xl text-center '>Register Here</h2>
