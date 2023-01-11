@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Footer = () => {
+const Footer = (prop) => {
+console.log(prop)
+
     return (
-        <div>
+        <div >
+             
             <footer className="footer p-10 bg-slate-700	 text-base-content">
                 <div>
                     <span className="footer-title">Services</span>

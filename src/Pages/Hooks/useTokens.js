@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 
 const useTokens = (user) => {
     const [token, setToken] = useState('');
-
+console.log( user?.user?.email)
     useEffect(()=>{
         const email = user?.user?.email
-        const currentUser = {email : email}
-        if(email){
-            fetch(`https://manufacturer-0397.onrender.com/user/${email}`, {
+        const gemail = user?.guser?.email
+        const currentUser = {email : email || gemail}
+        if(email || gemail){
+            fetch(`https://manufacturer-0397.onrender.com/user/${email || gemail}`, {
                 method:'PUT',
                 headers: {
                     'content-type': 'application/json'

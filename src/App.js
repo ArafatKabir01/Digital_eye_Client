@@ -24,20 +24,26 @@ import Navbar from './Pages/Shared/Navbar';
 import Signup from './Pages/SignUp/Signup';
 
 import musicBg from '../src/Images/1162652.jpg'
+import About from './Pages/About/About';
+import NewPurchase from './Pages/Purchase/NewPurchase';
+import { ConfiremPurchese } from './Pages/Purchase/ConfiremPurchese';
 function App() {
   return (
     <div data-theme="none" style={{ backgroundImage: `url(${musicBg})` }} className=" bg-fixed bg-center
-    bg-no-repeat bg-cover"  >
+    bg-no-repeat bg-cover scroll-smooth"  >
       <Navbar />
       
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="login" element={<Login />} />
+        <Route path="/" element={<Footer />} />
+        <Route path="login"  element={<Login />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="purchase/:id" element={<RequireAuth>
-          <Purchase />
+        <Route path="about" element={<About />} />
+        <Route path="newpurchase/:id" element={<NewPurchase />} />
+        <Route path="confiremBuy/:id" element={<RequireAuth>
+          <ConfiremPurchese />
         </RequireAuth>} />
-
+        
         <Route path="dashboard" element={<RequireAuth>
           <Dashboard />
         </RequireAuth>}
@@ -50,8 +56,9 @@ function App() {
           <Route path='users' element={<RequireAdmin><Users /></RequireAdmin>}></Route>
           <Route path='payment/:id' element={<Payment />}></Route>
         </Route>
+        
       </Routes>
-      <Footer />
+     
 
 
 

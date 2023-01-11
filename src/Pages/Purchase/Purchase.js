@@ -8,7 +8,6 @@ import Loading from "../Shared/Loading"
 
 const Purchase = () => {
     let { id } = useParams()
-    console.log(id)
     const [user, loading, error] = useAuthState(auth);
     const [product, setProduct] = useState([])
     const navigate = useNavigate()

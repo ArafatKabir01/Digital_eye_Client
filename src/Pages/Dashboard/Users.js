@@ -13,6 +13,7 @@ const Users = () => {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }
     }).then(res => res.json()));
+    console.log(users)
     if (isLoading) {
         return <Loading></Loading>
     }
@@ -46,7 +47,7 @@ const Users = () => {
 
 
                                 {
-                                    users.map(user => <MakeAdmin key={user._id} user ={user}>
+                                    users?.map(user => <MakeAdmin key={user._id} user ={user}>
                                        refetch={refetch()} </MakeAdmin>
                                 )}
                                 

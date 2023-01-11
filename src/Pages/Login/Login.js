@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import auth from '../../firebase.init';
@@ -16,7 +16,8 @@ const Login = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
-    const [token] = useTokens(user, loading)
+    console.log(user)
+    const [token] = useTokens(user || guser)
     const navigate = useNavigate()
     const location = useLocation()
     let from = location.state?.from?.pathname || "/";
@@ -39,10 +40,6 @@ const Login = () => {
         navigate(from, { replace: true });
 
     }
-
-
-
-
 
     return (
         <div  style={{ backgroundImage: `url("${img}")` }} className="bg-no-repeat bg-center bg-cover " >
@@ -103,7 +100,7 @@ const Login = () => {
 
                                 <div className="flex flex-col w-full border-opacity-50">
                                     <div className="form-control mt-6 px-8 ">
-                                        <button className="btn btn-primary border-0 rounded bg-emerald-500">Login</button>
+                                        <button className="btn  btn-primary border-0 rounded bg-emerald-500">Login</button>
                                     </div>
                                     {errorLogin}
                                     {cheqLoading}
@@ -112,8 +109,8 @@ const Login = () => {
                                 </div>
                             </form>
 
-                            <div className="form-control p-4 ">
-                                <button onClick={() => signInWithGoogle()} className="btn btn-outline btn-warning">Google Login</button>
+                            <div className="form-control p-2 px-8">
+                                <button onClick={() => signInWithGoogle()} className="btn  btn-sm btn-outline btn-warning">Google Login</button>
                             </div>
 
                         </div>

@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import auth from '../../firebase.init';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { signOut } from 'firebase/auth';
-import axios from 'axios';
-import Loading from "../Shared/Loading"
-import vdo from '../../videos/3D_product.mp4'
 import './Navbar.css'
+import Footer from './Footer';
+import useAdmin from '../Hooks/useAdmin';
 const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
   const [cartItems, setCartItems] = useState(0);
+  const [admin] = useAdmin(user)
   const orders = localStorage.getItem("totalOrder")
   const logOut = () => {
     signOut(auth)
@@ -22,14 +22,14 @@ const Navbar = () => {
 
   // },[orders])
 
-
+ 
 
 
   return (
     <div>
       <div className='text-white'>
-        {/* <video className='w-screen relative' src={vdo} autoPlay loop muted></video> */}
-        <div className="navbar container absolute left-0 top-0 bg-no-repeat bg-cover text-xl z-10 h-24   top-0 left-0 right-0   m-auto  ">
+       
+        <div className="navbar w-full container lg:fixed left-0 top-0  bg-no-repeat bg-cover text-xl z-10 h-24   top-0 left-0 right-0 m-auto">
           <div className="navbar-start  ">
             <div className="dropdown">
               <label tabindex="0" className="btn btn-ghost lg:hidden">
@@ -39,10 +39,11 @@ const Navbar = () => {
                 <li>
                   < Link to="/">Home</ Link>
 
-                  <Link to='/blog'>Blog</Link>
+                  <Link to='/about'>About</Link>
                   <a href='https://effortless-dragon-4ad78d.netlify.app/ ' target="_blank" >Portfolio</a>
 
                   {user ? <></> : <Link to='/login'>Login</Link>}
+                  
 
                 </li>
               </ul>
@@ -56,7 +57,7 @@ const Navbar = () => {
             <ul className="menu menu-horizontal p-0">
               <li >
                 <Link to="/">Home</ Link>
-                <Link to='/blog'>Blog</Link>
+                <Link to='/about'>About</Link>
                 <a href='https://effortless-dragon-4ad78d.netlify.app/ ' target="_blank">Portfolio</a>
                 {user ? <></> : <Link to='/login'>Login</Link>}
 
@@ -65,8 +66,10 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="navbar-end ">
+            {admin && <h2 className='mx-2'>Admin</h2>}
             <div className="flex aling-center gap-2">
-              <div className="dropdown dropdown-end">
+              { !admin && <div className= "dropdown dropdown-end ">
+              
                 <label tabIndex={0} className="btn btn-ghost btn-circle">
                   <div className="indicator">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
@@ -78,16 +81,18 @@ const Navbar = () => {
                     <span className="font-bold text-lg">{orders}</span>
                     <span className="text-info">Subtotal: $999</span>
                     <div className="card-actions">
-                      <button className="btn btn-primary btn-block">View cart</button>
+                      <Link to='/dashboard/myorder' className="btn btn-sm btn-block">View cart</Link>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> 
+              
+              }
               {
                 user ? <div className="dropdown dropdown-end">
                   <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">
-                      <img src="https://placeimg.com/80/80/people" />
+                      <img src={user.photoURL} />
                     </div>
                   </label>
                   <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
@@ -95,7 +100,7 @@ const Navbar = () => {
                       <a className="justify-between">
                         Profile
                       </a>
-                      <Link to="dashboard">Dashboard</ Link>
+                      <Link onClick={<Footer currentPage="dashboard"/>} to="dashboard">Dashboard</ Link>
                       <button onClick={logOut} className="mt-1">Log Out</button>
                     </li>
 

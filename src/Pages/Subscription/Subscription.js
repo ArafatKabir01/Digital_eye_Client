@@ -11,7 +11,7 @@ const Subscription = () => {
         bg-no-repeat bg-cover">
 
             <div className="hero-content text-center text-neutral-content">
-                <div style={{ backgroundColor: `#283442` }} className="w-[800px] h-[280px] rounded opacity-80	">
+                <div style={{ backgroundColor: `#283442` }} className=" p-2 w-full lg:w-[800px] h-full lg:h-[280px] rounded opacity-80	">
                     <div className='my-20'>
                         <h2 className=" text-3xl font-bold text-slate-200	">Subscribe For New Music</h2>
                         <div className='flex gap-3 justify-center'>

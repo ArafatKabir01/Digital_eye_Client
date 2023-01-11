@@ -117,7 +117,7 @@ const Signup = () => {
 
                                 <div className="flex flex-col w-full border-opacity-50">
                                     <div className="form-control mt-6 px-8 ">
-                                        <button className="btn btn-primary border-0 rounded bg-emerald-500">SignUp</button>
+                                        <button className="btn  btn-primary border-0 rounded bg-emerald-500">SignUp</button>
                                     </div>
                                     {errorLogin}
                                     {cheqLoading}
@@ -126,8 +126,8 @@ const Signup = () => {
                                 </div>
                             </form>
 
-                            <div className="form-control p-4 ">
-                                <button onClick={() => signInWithGoogle()} className="btn btn-outline btn-warning">Google Login</button>
+                            <div className="form-control p-2 px-8 ">
+                                <button onClick={() => signInWithGoogle()} className="btn btn-sm  btn-outline btn-warning">Google Login</button>
                             </div>
 
                         </div>
