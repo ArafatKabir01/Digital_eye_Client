@@ -19,7 +19,7 @@ const CustomerReviews = () => {
   const [rating, setRating] = useState(3)
   const [ratingStatus, setRatingStatus] = useState("")
 
-  const userApi = `http://localhost:5000/userInfo/${user?.email}`
+  const userApi = `https://manufacturer-0397.onrender.com/userInfo/${user?.email}`
   let { users, userLoading, userRefetch, setValu } = UseSingleUser(userApi)
   const {setNewUser , newUser} = useContext(UserContext)
 
@@ -28,7 +28,7 @@ useEffect(()=>{
     userRefetch()
   }
 },[newUser])
-  const { data , isLoading, refetch } = useQuery('reviewData', () => fetch('http://localhost:5000/customerReview', {
+  const { data , isLoading, refetch } = useQuery('reviewData', () => fetch('https://manufacturer-0397.onrender.com/customerReview', {
     method: 'GET',
     headers:{
         authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -70,7 +70,7 @@ const reversedData = data?.reverse();
 
     }
 
-    const url = `http://localhost:5000/customerReview/:${id}`
+    const url = `https://manufacturer-0397.onrender.com/customerReview/:${id}`
     fetch(url, {
       method: 'PUT',
       headers: { 'content-type': 'application/json' },
@@ -90,7 +90,7 @@ const reversedData = data?.reverse();
   const handleDeleteReview = (rid) => {
     const proceed = window.confirm('are you sure?')
     if (proceed) {
-      const url = `http://localhost:5000/review/${rid}`
+      const url = `https://manufacturer-0397.onrender.com/review/${rid}`
       fetch(url, {
         method: "DELETE"
       })

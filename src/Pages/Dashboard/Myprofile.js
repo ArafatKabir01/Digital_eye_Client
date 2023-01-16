@@ -10,7 +10,7 @@ import Loading from '../Shared/Loading';
 const Myprofile = () => {
     const [user,loading, Uerror] = useAuthState(auth);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const userApi = `http://localhost:5000/userInfo/${user?.email}`
+    const userApi = `https://manufacturer-0397.onrender.com/userInfo/${user?.email}`
     const { users, userRefetch , setValu } = UseSingleUser(userApi)
     const {setNewUser , newUser} = useContext(UserContext)
     if (loading) {
@@ -41,7 +41,7 @@ const Myprofile = () => {
 
 
             }
-            const url = "http://localhost:5000/userInfo"
+            const url = "https://manufacturer-0397.onrender.com/userInfo"
             fetch(url, {
                 method: 'PUT',
                 headers: {

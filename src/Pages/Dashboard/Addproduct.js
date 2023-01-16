@@ -43,7 +43,7 @@ const Addproduct = () => {
             }
             console.log(productdata)
 
-            const url = "http://localhost:5000/allParts"
+            const url = "https://manufacturer-0397.onrender.com/allParts"
             fetch(url, {
                 method: 'POST',
                 headers: {

@@ -41,7 +41,7 @@ const UpdateProduct = () => {
             }
 
 
-            fetch(`http://localhost:5000/product/${id}`, {
+            fetch(`https://manufacturer-0397.onrender.com/product/${id}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json'
@@ -64,7 +64,7 @@ const UpdateProduct = () => {
             }
 
 
-            fetch(`http://localhost:5000/product/${id}`, {
+            fetch(`https://manufacturer-0397.onrender.com/product/${id}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json'

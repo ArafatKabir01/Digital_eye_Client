@@ -43,7 +43,7 @@ export const ConfiremPurchese = () => {
     }
     const onSubmit = data => {
         console.log(data)
-
+const updateAvailableQuantity = product?.availableQuantity - ~~data?.quantity
         const url = `https://manufacturer-0397.onrender.com/customerorder`
         fetch(url, {
             method: 'POST',
@@ -56,6 +56,23 @@ export const ConfiremPurchese = () => {
                 setNewUser(true)
                 console.log(result)
             })
+            if (updateAvailableQuantity) {
+                const productInfoData = {
+                    availableQuantity: updateAvailableQuantity,
+                }
+                fetch(`https://manufacturer-0397.onrender.com/product/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(productInfoData)
+    
+                })
+                    .then(res => res.json())
+                    .then(data => { console.log(data)
+    
+                    })
+            }
     }
     return (
         <div className='hero min-h-screen '>

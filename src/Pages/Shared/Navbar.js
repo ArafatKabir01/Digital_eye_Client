@@ -16,7 +16,7 @@ const Navbar = () => {
   const [newData, setNewData] = useState()
   const [admin] = useAdmin(user)
   const email = user?.email
-  const userApi = `http://localhost:5000/userInfo/${email}`
+  const userApi = `https://manufacturer-0397.onrender.com/userInfo/${email}`
   let { users, loading, userRefetch , setValu } = UseSingleUser(userApi)
   const {setNewUser , newUser} = useContext(UserContext)
   const cartApi = `https://manufacturer-0397.onrender.com/myOrder?email=${email}`

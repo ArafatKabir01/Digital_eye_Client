@@ -36,7 +36,7 @@ const Signup = () => {
             phoneNumber:usersData.phoneNumber,
             address : usersData.place
         }
-         fetch('http://localhost:5000/userInfo',{
+         fetch('https://manufacturer-0397.onrender.com/userInfo',{
             method : 'PUT',
             headers : {
                 'content-type' : 'application/json'
