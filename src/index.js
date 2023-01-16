@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider} from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import ContextUser from './Pages/Shared/ContextUser';
+
 
 
 const queryClient = new QueryClient()
@@ -14,8 +16,11 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <App />
+        <ContextUser>
+          <App />
+        </ContextUser>
       </BrowserRouter>
+
     </QueryClientProvider>
   </React.StrictMode>
 );

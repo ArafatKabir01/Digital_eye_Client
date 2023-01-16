@@ -31,13 +31,13 @@ const Signup = () => {
     }
     if (token) {
         const userData = {
-            displayName : usersData.displayName,
+            name : usersData.displayName,
             email: usersData.email,
             phoneNumber:usersData.phoneNumber,
-            place : usersData.place
+            address : usersData.place
         }
-         fetch('https://registrar-app.onrender.com/alluser',{
-            method : 'POST',
+         fetch('http://localhost:5000/userInfo',{
+            method : 'PUT',
             headers : {
                 'content-type' : 'application/json'
             },

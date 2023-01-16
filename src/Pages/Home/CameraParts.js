@@ -6,26 +6,21 @@ import useAdmin from '../Hooks/useAdmin';
 import './CameraParts.css'
 
 import Loading from '../Shared/Loading';
+import { useQuery } from 'react-query';
 const CameraParts = () => {
-    const [allParts, setParts] = useState([])
     const [user] = useAuthState(auth)
     const [admin] = useAdmin(user)
     const axios = require('axios');
     const navigate = useNavigate();
+    const { data: allParts , isLoading, refetch } = useQuery('allParts', () => fetch('https://manufacturer-0397.onrender.com/allParts', {
+        method: 'GET',
+        headers:{
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    }).then(res => res.json()));
+   
 
-    useEffect(() => {
-        axios.get('https://manufacturer-0397.onrender.com/allParts')
-            .then(function (response) {
-                // handle success
-                setParts(response.data)
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-    }, []);
-
-    if (!allParts[0]?.title) {
+    if (isLoading) {
         return <Loading />
     }
     const navigateToProductInfo = id => {
@@ -33,11 +28,11 @@ const CameraParts = () => {
     }
 
     return (
-        <div >
-            <h2 className='text-5xl font-bold text-orange-700 text-center mb-8 pt-12 '>New Arrivale</h2>
+        <div  className='h-screen '>
+            <h2 className='text-5xl font-bold text-yellow-500 text-center mb-8 pt-12 '>NEW ARRIVLE</h2>
             <div className='grid grid-cols md:grid-cols-4 lg:grid-cols-4 justify-items-center gap-2'>
                 {
-                    allParts.map(parts => <div className="glassBox my-5">
+                    allParts?.map(parts => <div className="glassBox my-5">
                         <div className="glassBox__imgBox">
                             <img src={parts?.images[0]} alt="" />
                         </div>
@@ -45,7 +40,7 @@ const CameraParts = () => {
                             <div data-aos="fade-down-right" className="">
                                 <div className='h-32 '>
                                     <h2 className=" h-10 text-amber-400 px-3 glassBox__title">{parts?.title}</h2>
-                                    <div className='w-64 font-bold p-4 my-5 h-20 text-amber-500 leading-6'>
+                                    <div className='w-64 font-bold p-4 my-5 h-20 text-amber-500 leading-6 text-center'>
                                         <p>Price : {parts?.price}$</p>
                                         <p>Available quantity : {parts?.availableQuantity} pic</p>
                                     </div>

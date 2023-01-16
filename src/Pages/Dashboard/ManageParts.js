@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import UseParts from '../Hooks/UseParts';
-
+import { useNavigate } from 'react-router-dom';
 const ManageParts = () => {
     const [products, setProducts] = UseParts([])
     const [seacrchText , setSearchText] = useState('')
     const [seacrchResult , setSearchREsult] = useState([])
-
+    const navigate = useNavigate();
     const handleDelete = id => {
         const proceed = window.confirm('are you sure?')
         if (proceed) {
@@ -21,6 +21,9 @@ const ManageParts = () => {
                 })
         }
     }
+    const handleUpdate = id => {
+        navigate(`/updateProduct/${id}`)
+    }
     useEffect(()=>{
         console.log('ok')
         fetch("https://manufacturer-0397.onrender.com/allProducts")
@@ -34,19 +37,15 @@ const ManageParts = () => {
         setSearchText(event.target.value)
     }
     return (
-        <div>
+        <div className=''>
             <div>
                 <div class="overflow-x-auto w-full">
                     <table class="table w-full">
                         <div class="overflow-x-auto w-full">
-                            <table class="table w-full">
+                            <table class="table w-full ">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <label>
-                                                <input type="checkbox" class="checkbox" />
-                                            </label>
-                                        </th>
+                                        
                                         <th>Name</th>
                                         <th>Quantity</th>
                                         <th>Price</th>
@@ -65,11 +64,7 @@ const ManageParts = () => {
                                     products.map(product => <>
                                         <tbody>
                                             <tr>
-                                                <th>
-                                                    <label>
-                                                        <input type="checkbox" class="checkbox" />
-                                                    </label>
-                                                </th>
+                                                
                                                 <td>
                                                     <div class="flex items-center space-x-3">
                                                         <div class="avatar">
@@ -87,6 +82,9 @@ const ManageParts = () => {
                                                     {product.availableQuantity}
                                                 </td>
                                                 <td>{product.price}$</td>
+                                                <th>
+                                                    <button onClick={() => handleUpdate(product._id)} class="btn btn-ghost btn-xs">Update</button>
+                                                </th>
                                                 <th>
                                                     <button onClick={() => handleDelete(product._id)} class="btn btn-ghost btn-xs">Delete</button>
                                                 </th>

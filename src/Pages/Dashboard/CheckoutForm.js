@@ -1,22 +1,23 @@
 
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import UseCart from '../Hooks/UseCart';
+import { UserContext } from '../Shared/ContextUser';
 
-const CheckoutForm = ({orders}) => {
+const CheckoutForm = ({ orders }) => {
     const stripe = useStripe()
     const elements = useElements();
-    const [cardError , setCardError] = useState('');
-    const [success , setSuccess] = useState('');
+    const [cardError, setCardError] = useState('');
+    const [success, setSuccess] = useState('');
     const [processing, setProcessing] = useState(false);
     const [transactionId, setTransactionId] = useState('');
     const [clientSecret, setClientSecret] = useState('');
     const navigate = useNavigate();
-    
-    
-    const {price , email ,_id} = orders[0]
-    console.log(price,email)
-
+    const { price, email, _id } = orders[0]
+    console.log(price, email)
+    const { setNewUser, newUser } = useContext(UserContext)
+console.log(newUser)
     useEffect(() => {
         fetch('https://manufacturer-0397.onrender.com/create-payment-intent', {
             method: 'POST',
@@ -37,20 +38,20 @@ const CheckoutForm = ({orders}) => {
 
 
 
-   const handleSubmit = async (event) =>{
-    event.preventDefault()
+    const handleSubmit = async (event) => {
+        event.preventDefault()
 
-    if(!stripe || !elements){
-        return
-    }
-    const card = elements.getElement(CardElement);
-    if(card === null){
-        return
-    }
-    const {error, paymentMethod} = await stripe.createPaymentMethod({
-        type: 'card',
-        card,
-      });
+        if (!stripe || !elements) {
+            return
+        }
+        const card = elements.getElement(CardElement);
+        if (card === null) {
+            return
+        }
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card,
+        });
 
         setCardError(error?.message || '')
         setSuccess('')
@@ -62,7 +63,7 @@ const CheckoutForm = ({orders}) => {
                 payment_method: {
                     card: card,
                     billing_details: {
-                        
+
                         email: email
                     },
                 },
@@ -77,6 +78,7 @@ const CheckoutForm = ({orders}) => {
             setCardError('');
             setTransactionId(paymentIntent.id);
             console.log(paymentIntent);
+
             setSuccess('Congrats! Your payment is completed.')
 
             //store payment on database
@@ -91,20 +93,23 @@ const CheckoutForm = ({orders}) => {
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 },
                 body: JSON.stringify(payment)
-            }).then(res=>res.json())
-            .then(data => {
-                setProcessing(false);
-                console.log(data);
-            })
+            }).then(res => res.json())
+                .then(data => {
+                    
+                    setProcessing(false);
+                    console.log(data);
+                   
+
+                })
         }
+    }
+    if(success){
+        setNewUser(true)
         navigate(`/dashboard/myOrder`)
-
-
-
     }
     return (
         <>
-            <form  onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <CardElement
                     options={{
                         style: {
@@ -121,19 +126,19 @@ const CheckoutForm = ({orders}) => {
                         },
                     }}
                 />
-                <button className='btn btn-sm btn-secondary m-2' type="submit" disabled={!stripe || !clientSecret }>
+                <button className='btn btn-sm btn-secondary m-2' type="submit" disabled={!stripe || !clientSecret}>
                     Pay
                 </button>
             </form>
             {
                 cardError && <p className='text-red-900'>{cardError}</p>
-                
+
             }
             {
-               success && <div className='text-green-500'>
-               <p>{success}  </p>
-               <p>Your transaction Id: <span className="text-orange-500 font-bold">{transactionId}</span> </p>
-           </div>
+                success && <div className='text-green-500'>
+                    <p>{success}  </p>
+                    <p>Your transaction Id: <span className="text-orange-500 font-bold">{transactionId}</span> </p>
+                </div>
             }
         </>
     );

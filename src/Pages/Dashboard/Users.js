@@ -6,21 +6,11 @@ import Loading from '../Shared/Loading';
 import MakeAdmin from './MakeAdmin';
 
 const Users = () => {
-    // const [users, setUsers] = useUser([])
-    const { data: users, isLoading, refetch } = useQuery('users', () => fetch('https://manufacturer-0397.onrender.com/users', {
-        method: 'GET',
-        headers:{
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`
-        }
-    }).then(res => res.json()));
-    console.log(users)
-    if (isLoading) {
-        return <Loading></Loading>
-    }
-   
-    
+    const [allUser ,setAllUser] = useState([])
+    const [users , setUsers] = useUser()
     return (
         <div>
+            
             <div class="overflow-x-auto w-full">
                 <table class="table w-full">
                     <div class="overflow-x-auto w-full">
@@ -44,11 +34,8 @@ const Users = () => {
                             </thead>
 
                             <tbody>
-
-
                                 {
-                                    users?.map(user => <MakeAdmin key={user._id} user ={user}>
-                                       refetch={refetch()} </MakeAdmin>
+                                    users?.map(user => <MakeAdmin key={user._id} user ={user}  >  </MakeAdmin>
                                 )}
                                 
 

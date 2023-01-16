@@ -14,8 +14,9 @@ const useUser = () => {
             setUsers(data)
         }
         getUsers()
+        
     }, [])
-    return [users , setUsers]
+    return [users , setUsers ]
 };
 
-export default useUser;
+export default useUser ;

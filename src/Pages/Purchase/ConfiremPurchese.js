@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import auth from '../../firebase.init';
+import { UserContext } from '../Shared/ContextUser';
 import Loading from '../Shared/Loading';
 
 export const ConfiremPurchese = () => {
@@ -14,6 +15,7 @@ export const ConfiremPurchese = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     let { id } = useParams()
     const [user, loading, error] = useAuthState(auth);
+    const { setNewUser, newUser } = useContext(UserContext)
     useEffect(() => {
         fetch("https://restcountries.com/v3.1/all")
             .then(res => res.json())
@@ -50,13 +52,17 @@ export const ConfiremPurchese = () => {
 
         })
             .then(res => res.json())
-            .then(result => console.log(result))
+            .then(result => {
+                setNewUser(true)
+                console.log(result)
+            })
     }
     return (
-        <div className='hero min-h-screen bg-base-200'>
-            <div className="hero-content text-center my-20">
+        <div className='hero min-h-screen '>
+            <div className="hero-content  text-center my-20">
+
                 <div class="flex-col lg:flex-row-reverse">
-                    <div data-aos="zoom-in" class="card  w-full shadow-2xl bg-base-100">
+                    <div data-aos="zoom-in" class="card  w-full shadow-2xl ">
                         <form className='m-auto' onSubmit={handleSubmit(onSubmit)}>
                             <div class="card-body ">
 
@@ -103,12 +109,13 @@ export const ConfiremPurchese = () => {
                                         <label className="label">
                                             <span className="label-text">Set Quantity</span>
                                         </label>
-                                        <input {...register("quantity", { min: 10 , max: maxQuantity }, { required: true })} type="number" className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                        <input {...register("quantity", { min: 10, max: maxQuantity }, { required: true })} type="number" className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         <div className='text-left my-2'>
                                             {errors.quantity && <span className='text-rose-300 '>Minimum Quantity 10 pieces and Maximum Quantity {maxQuantity}  pieces</span>}
                                         </div>
 
                                     </div>
+
                                     <div>
                                         <div className="my-1">
                                             <label
@@ -126,6 +133,26 @@ export const ConfiremPurchese = () => {
                                                 className="w-full my-2 resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                             ></textarea>
                                         </div>
+                                        <div>
+                                            <div className="my-1">
+                                                <label
+                                                    for="address"
+                                                    className="label-text my-2"
+                                                >
+                                                    Write your delivery address
+                                                </label>
+                                                <textarea
+                                                    {...register("address", { required: true })}
+                                                    rows="2"
+                                                    name="address"
+                                                    id="address"
+                                                    placeholder="Write Your delivery Address"
+                                                    className="w-full my-2 resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                                ></textarea>
+                                            </div>
+
+
+                                        </div>
 
 
                                     </div>
@@ -133,7 +160,7 @@ export const ConfiremPurchese = () => {
                                 </div>
 
                                 <div class="form-control mt-6">
-                                    <button class="btn bg-[#C59C86] text-black">Add to Cart</button>
+                                    <button class="btn bg-[#C59C86] text-black hover:text-white">Add to Cart</button>
                                 </div>
                             </div>
                         </form>

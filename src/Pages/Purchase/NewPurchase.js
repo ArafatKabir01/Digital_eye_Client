@@ -72,7 +72,7 @@ const NewPurchase = () => {
     }
 
     return (
-        <div className='scroll-smooth overflow-x-hidden relative bg-base-200'>
+        <div className='scroll-smooth overflow-x-hidden relative '>
             <div className='scroll-smooth'>
                 <div className="z-30 absolute  mr-[70px] lg:mr-[200px] mt-[200px] lg:mt-[300px]">
                     {pageState === true && <p onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="rotate-90 text-md text-white right-0 fixed" ><IoIosArrowDropleftCircle className='w-10 h-10 mx-10' /></p>}
@@ -87,20 +87,20 @@ const NewPurchase = () => {
                 </div>
                 <div id='top' className="hero min-h-screen">
 
-                    <div className="hero-content grid grid-cols lg:grid-cols-2 gap-8 justify-items-center my-20">
-                        <div data-aos="fade-right">
-                            <h2 className="text-[6vh] font-bold">{product.title}</h2>
+                    <div className="hero-content grid grid-cols lg:grid-cols-2 gap-3 justify-items-center my-20">
+                        <div data-aos="fade-right" className='lg:ml-24'>
+                            <h2 className="text-5xl font-bold text-white">{product.title}</h2>
 
-                            <div className='w-64 my-6'>
-                                <p className='text-2xl p-5'>$199</p>
-                                <input onClick={() => handleColor(0)} type="radio" name="radio-3" className="radio w-12 bg-red-500 checked:bg-red-500 mx-3" />
-                                <input onClick={() => handleColor(1)} type="radio" name="radio-3" className="radio w-12 bg-black checked:bg-black" />
-                                <input onClick={() => handleColor(2)} type="radio" name="radio-3" className="radio w-12 bg-[#D5ABA4] checked:bg-[#D5ABA4] mx-3" />
+                            <div className='w-full lg:w-64 my-3'>
+                                <p className='text-3xl text-purple-50 mb-3'>${product.price}</p>
+                                <input onClick={() => handleColor(0)} type="radio" name="radio-3" className="radio w-12 bg-red-500 checked:bg-red-500 " />
+                                <input onClick={() => handleColor(1)} type="radio" name="radio-3" className="radio w-12 bg-black checked:bg-black mx-3" />
+                                <input onClick={() => handleColor(2)} type="radio" name="radio-3" className="radio w-12 bg-[#D5ABA4] checked:bg-[#D5ABA4] " />
                             </div>
                             <button onClick={() => handleBuy()} className="btn btn-sm w-64 my-3">Buy Now</button>
                         </div>
                         <div div data-aos="fade-left">
-                            <img src={product?.images[color]} className=" h-[300px] w-[340px] lg:h-[700px] lg:w-[800px]" />
+                            <img src={product?.images[color]} className=" h-[300px] w-[340px] lg:h-[500px] lg:w-[500px] " />
                         </div>
                     </div>
                 </div>
@@ -144,7 +144,7 @@ const NewPurchase = () => {
                     </div>
                 </div>
                 
-                <div className="">
+                <div className="p-5">
                     <CustomerReviews/>
                     
                 </div>

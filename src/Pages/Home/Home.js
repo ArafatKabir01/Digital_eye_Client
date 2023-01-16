@@ -8,11 +8,11 @@ import Footer from '../Shared/Footer';
 const Home = () => {
     const [count , setCount] =  useState(false);
     const [countT , setCountT] =  useState(0);
-
+     
     window.addEventListener('scroll', () => {
 
-        setCountT((window.scrollY/500));
-        if(window.scrollY/500 > 3){
+        setCountT((window.scrollY/800));
+        if(window.scrollY/800 > 2.8){
             setCount(true)
         }else{
             setCount(false)
@@ -22,13 +22,14 @@ const Home = () => {
     
     console.log(count)
     return (
-        <div className='relative scroll-smooth overflow-x-hidden overflow-y-hidden'>
+        <div className='relative scroll-smooth overflow-x-hidden overflow-y-hidden '>
 
             <div  className=' grid justify-items-center'>
                 < Banner2 ></Banner2>
-                <img style={{ transform: `scale(${countT})`,top:"1200px" }}  className={count ?  "element absolute hidden md:block lg:block": "absolute hidden md:block lg:block element2"} src={bgimage} />
                 <CameraParts />
+                
                 <Subscription/>
+                
                
             </div>
             <Footer/>

@@ -1,10 +1,9 @@
 import React from 'react';
 import { toast } from 'react-toastify';
 
-const MakeAdmin = ({ user , refetch}) => {
-   
+const MakeAdmin = ({ user , setUsers}) => {
+
     const {email} = user
-    
     console.log(email)
     const makeAdmin = () => {
         const url = `https://manufacturer-0397.onrender.com/user/admin/${email}`
@@ -18,7 +17,6 @@ const MakeAdmin = ({ user , refetch}) => {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                refetch()
                 toast.success('Admin Creation successfull')
             })
     }
@@ -32,7 +30,8 @@ const MakeAdmin = ({ user , refetch}) => {
                 .then(res => res.json())
                 .then(data => {
                     
-                    refetch()
+                    const remaining = user.filter(product => product._id !== id);
+                    setUsers(remaining);
                     
                 })
         }

@@ -1,38 +1,36 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react'
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 
-const Addproduct = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const [imgCount , setImgCount]= useState(0)
-    const [error, setError] = useState('');
-
-    const onSubmit = async (data, e) => {
-        setImgCount(data.images.length)
+const UpdateProduct = () => {
+    let { id } = useParams()
+    const { register, handleSubmit, watch, reset, resetField, formState: { errors } } = useForm();
+    const onSubmit = async data => {
+        console.log(data)
         const imagehostUrl = `https://api.imgbb.com/1/upload?key=efa866edd2d0d4161f2c96b05f501583`
         const api_kye = "efa866edd2d0d4161f2c96b05f501583"
         let imgurls = []
-        for (const file of data.images) {
-            let formData = new FormData();
-            formData.append("image", file);
-            formData.append("key", api_kye);
-            try {
-                const response = await fetch(imagehostUrl, {
-                    method: "POST",
-                    body: formData,
-                })
-                const responseData = await response.json();
-                if (response.ok) {
-                    imgurls.push(responseData.data.url);
-                } else {
-                    throw new Error(responseData.message);
+        if (data.images[0]) {
+            for (const file of data.images) {
+                let formData = new FormData();
+                formData.append("image", file);
+                formData.append("key", api_kye);
+                try {
+                    const response = await fetch(imagehostUrl, {
+                        method: "POST",
+                        body: formData,
+                    })
+                    const responseData = await response.json();
+                    if (response.ok) {
+                        imgurls.push(responseData.data.url);
+                    } else {
+                        throw new Error(responseData.message);
+                    }
+                } catch (error) {
+                    console.error("Error uploading image", error);
                 }
-            } catch (error) {
-                console.error("Error uploading image", error);
             }
-        }
-        if (imgurls) {
-            const productdata = {
+            const productInfoData = {
                 title: data?.title,
                 images: imgurls,
                 price: data?.price,
@@ -41,34 +39,50 @@ const Addproduct = () => {
                 highlights: data?.highlights,
                 tech_Specs: data?.tech_Specs,
             }
-            console.log(productdata)
 
-            const url = "http://localhost:5000/allParts"
-            fetch(url, {
-                method: 'POST',
+
+            fetch(`http://localhost:5000/product/${id}`, {
+                method: 'PUT',
                 headers: {
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify(productdata)
+                body: JSON.stringify(productInfoData)
 
             })
                 .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    // you can add here like, use a state variable for giving a message that product is added successfully
+                .then(data => { console.log(data)
+
                 })
-                .catch(err => console.log(err))
+        }else if (data?.title && !data.images[0]) {
+            const productInfoData = {
+                title: data?.title,
+                price: data?.price,
+                availableQuantity: data?.availableQuantity,
+                overview: data?.overview,
+                highlights: data?.highlights,
+                tech_Specs: data?.tech_Specs,
+            }
+
+
+            fetch(`http://localhost:5000/product/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(productInfoData)
+
+            })
+                .then(res => res.json())
+                .then(data => { console.log(data)
+
+                })
         }
-
-
-        console.log(imgurls)
-    };
-
-    return (
-        <div>
-            <div className=''>
+    }
+  return (
+    <div>
+            <div className='h-screen py-20'>
                 <div className=' '>
-                    <h2 className='text-2xl font-bold p-3'>Add Product</h2>
+                    <h2 className='text-2xl font-bold p-3'>Update Product</h2>
                     <form className='m-auto' onSubmit={handleSubmit(onSubmit)}>
                         <div class="hero    ">
                             <div class="flex-col lg:flex-row-reverse">
@@ -90,7 +104,7 @@ const Addproduct = () => {
                                                 <input {...register("availableQuantity", { required: true })} type="text" class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                                 <div className=" w-full">
                                                     <label class="label">
-                                                        <span class="label-text">Upload images</span>
+                                                        <span class="label-text">Upload images (optional)</span>
                                                     </label>
                                                     <label
                                                         className="flex justify-center w-full h-32 px-4 transition bg-white border-2 border-gray-300 border-dashed rounded-md appearance-none cursor-pointer hover:border-gray-400 focus:outline-none">
@@ -104,10 +118,10 @@ const Addproduct = () => {
                                                                 Drop Image to Attach, or <span className="text-blue-600 underline">browse</span>
                                                             </span>
                                                         </span>
-                                                        <input type="file" name='images' className="hidden" multiple {...register('images' , { required: true })}   />
+                                                        <input type="file" name='images' className="hidden" multiple {...register('images')}   />
                                                     </label>
                                                 </div>
-                                                <h2 className='text-xl p-2'>Selected images : {imgCount}</h2>
+                                                
                                             </div>
                                             <div>
                                                 <div className="my-1">
@@ -176,7 +190,7 @@ const Addproduct = () => {
 
             </div>
         </div>
-    );
-};
+  )
+}
 
-export default Addproduct;
+export default UpdateProduct

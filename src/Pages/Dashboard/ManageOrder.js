@@ -9,7 +9,7 @@ import Loading from '../Shared/Loading';
 const ManageOrder = () => {
     const [user] = useAuthState(auth)
     const [admin] = useAdmin(user)
-    
+
     const { data: paidOrders, isLoading, refetch } = useQuery('paidOrders', () => fetch('https://manufacturer-0397.onrender.com/orderparts', {
         method: 'GET',
         headers:{
@@ -22,6 +22,7 @@ const ManageOrder = () => {
         return <Loading></Loading>
     }
 
+ 
     const handleDelete = id => {
         const proceed = window.confirm('are you sure?')
         if (proceed) {
@@ -48,7 +49,7 @@ const ManageOrder = () => {
     
     return (
         <div>
-            <div class="overflow-x-auto w-full">
+            <div class="overflow-x-auto w-full ">
                     <table class="table w-full">
                         <div class="overflow-x-auto w-full">
                             <table class="table w-full">
