@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import auth from '../../firebase.init';
 import axios from 'axios';
-import productImg from "../../Images/MX472-removebg-preview.png";
-import productImg2 from "../../Images/MX472_AV1-removebg-preview.png";
 import Loading from '../Shared/Loading';
 import { IoIosArrowDropleftCircle } from 'react-icons/io';
 import { IoIosArrowDroprightCircle } from 'react-icons/io';
 import CustomerReviews from '../CustomerReviews/CustomerReviews';
 const NewPurchase = () => {
     let { id } = useParams()
-    const [user, loading, error] = useAuthState(auth);
     const [product, setProduct] = useState([])
     const [pageState, setPageState] = useState(false)
     const [color, setColor] = useState(0)
     const navigate = useNavigate()
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const [page, setPage] = useState(0);
-
 
     window.addEventListener('scroll', () => {
 
@@ -41,33 +32,18 @@ const NewPurchase = () => {
                 // handle error
                 console.log(error);
             })
-        const addToCart = (product) => {
-            console.log(product)
-
-        }
-
-    }, []);
+    }, [id]);
 
     if (!product?.title) {
         return <Loading />
     }
-    const onSubmit = data => {
-        console.log(data)
-
-        const url = `https://manufacturer-0397.onrender.com/customerorder`
-        fetch(url, {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(data)
-
-        })
-            .then(res => res.json())
-            .then(result => console.log(result))
-    };
     const handleColor = data => {
         setColor(data)
     }
     const handleBuy = () => {
+        navigate(`/confiremBuy/${id}`)
+    }
+    const handlepreOrder = () => {
         navigate(`/confiremBuy/${id}`)
     }
 
@@ -97,7 +73,8 @@ const NewPurchase = () => {
                                 <input onClick={() => handleColor(1)} type="radio" name="radio-3" className="radio w-12 bg-black checked:bg-black mx-3" />
                                 <input onClick={() => handleColor(2)} type="radio" name="radio-3" className="radio w-12 bg-[#D5ABA4] checked:bg-[#D5ABA4] " />
                             </div>
-                            <button onClick={() => handleBuy()} className="btn btn-sm w-64 my-3">Buy Now</button>
+                            {product?.availableQuantity < 10 ? <button onClick={() => handlepreOrder()} className="btn btn-sm  my-2">Pre Order</button> : <button onClick={() => handleBuy()} className="btn btn-sm w-64 my-3">Buy Now</button>}
+
                         </div>
                         <div div data-aos="fade-left">
                             <img src={product?.images[color]} className=" h-[300px] w-[340px] lg:h-[500px] lg:w-[500px] " />
@@ -112,7 +89,8 @@ const NewPurchase = () => {
                         <div data-aos="fade-left" data-aos-duration="1500">
                             <h2 className="text-7xl font-bold">Overview</h2>
                             <p className="py-6">{product.overview}</p>
-                            <button onClick={() => handleBuy()} className="btn btn-sm w-64 my-3">Buy Now</button>
+                            {product?.availableQuantity < 10 ? <button onClick={() => handlepreOrder()} className="btn btn-sm  my-2">Pre Order</button> : <button onClick={() => handleBuy()} className="btn btn-sm w-64 my-3">Buy Now</button>}
+
                         </div>
 
                     </div>
@@ -123,7 +101,8 @@ const NewPurchase = () => {
                         <div data-aos="fade-right" data-aos-duration="1500">
                             <h2 className="text-7xl font-bold">Highlights</h2>
                             <p className="py-6">{product.highlights}</p>
-                            <button onClick={() => handleBuy()} className="btn btn-sm w-64 my-3">Buy Now</button>
+                            {product?.availableQuantity < 10 ? <button onClick={() => handlepreOrder()} className="btn btn-sm  my-2">Pre Order</button> : <button onClick={() => handleBuy()} className="btn btn-sm w-64 my-3">Buy Now</button>}
+
                         </div>
                         <div data-aos="fade-left" data-aos-duration="1500" className='mx-10'>
                             <img src={product?.images[4]} className=" h-[300px] w-[300px] lg:h-[600px] lg:w-[600px]" />
@@ -138,15 +117,16 @@ const NewPurchase = () => {
                         <div data-aos="fade-left" data-aos-duration="1500">
                             <h2 className="text-7xl font-bold">Tech Specs</h2>
                             <p className="py-6">{product.tech_Specs}</p>
-                            <button onClick={() => handleBuy()} className="btn btn-sm w-64 my-3">Buy Now</button>
+                            {product?.availableQuantity < 10 ? <button onClick={() => handlepreOrder()} className="btn btn-sm my-2">Pre Order</button> : <button onClick={() => handleBuy()} className="btn btn-sm w-64 my-3">Buy Now</button>}
+
                         </div>
 
                     </div>
                 </div>
-                
+
                 <div className="p-5">
-                    <CustomerReviews/>
-                    
+                    <CustomerReviews />
+
                 </div>
             </div>
 

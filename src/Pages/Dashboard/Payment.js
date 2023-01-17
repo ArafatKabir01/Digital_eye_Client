@@ -26,8 +26,9 @@ const Payment = () => {
     console.log(orders)
 
 
-
-    const { quantity, price, title } = orders[0]
+    const productId = id
+    console.log(productId)
+    const { quantity, price, title ,_id} = orders[0]
     const total = quantity * price + 100
     return (
         <div>
@@ -47,7 +48,7 @@ const Payment = () => {
             <div className="card w-full max-w-sm shadow-2xl bg-base-100">
                 <div className="card-body">
                     <Elements stripe={stripePromise}>
-                        <CheckoutForm orders={orders}  />
+                        <CheckoutForm orders={orders} productId={productId} />
                     </Elements>
 
                 </div>

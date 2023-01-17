@@ -58,6 +58,7 @@ function App() {
           <Route path='paidOrder' element={<PaidProduct />}></Route>
           <Route path='manageparts' element={<RequireAdmin><ManageParts /></RequireAdmin>}></Route>
           <Route path='users' element={<RequireAdmin><Users /></RequireAdmin>}></Route>
+         
           <Route path='payment/:id' element={<Payment />}></Route>
         </Route>
         

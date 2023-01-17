@@ -14,10 +14,11 @@ const CheckoutForm = ({ orders }) => {
     const [transactionId, setTransactionId] = useState('');
     const [clientSecret, setClientSecret] = useState('');
     const navigate = useNavigate();
-    const { price, email, _id } = orders[0]
-    console.log(price, email)
+    const { price, _id, email, productId, availableQuantity, quantity } = orders[0]
+    console.log(availableQuantity, quantity, email, _id)
     const { setNewUser, newUser } = useContext(UserContext)
-console.log(newUser)
+    const updateAvailableQuantity = ~~availableQuantity - ~~quantity
+    console.log(productId)
     useEffect(() => {
         fetch('https://manufacturer-0397.onrender.com/create-payment-intent', {
             method: 'POST',
@@ -95,15 +96,32 @@ console.log(newUser)
                 body: JSON.stringify(payment)
             }).then(res => res.json())
                 .then(data => {
-                    
+
                     setProcessing(false);
                     console.log(data);
-                   
+
 
                 })
         }
     }
-    if(success){
+    if (success) {
+        const productInfoData = {
+            availableQuantity: updateAvailableQuantity,
+        }
+        fetch(`https://manufacturer-0397.onrender.com/product/${productId}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(productInfoData)
+
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+
+            })
+
         setNewUser(true)
         navigate(`/dashboard/myOrder`)
     }

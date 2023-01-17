@@ -4,6 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import auth from '../../firebase.init';
+import useAdmin from '../Hooks/useAdmin';
 import { UserContext } from '../Shared/ContextUser';
 import Loading from '../Shared/Loading';
 
@@ -16,6 +17,7 @@ export const ConfiremPurchese = () => {
     let { id } = useParams()
     const [user, loading, error] = useAuthState(auth);
     const { setNewUser, newUser } = useContext(UserContext)
+    const [admin, setAdmin] = useAdmin(user)
     useEffect(() => {
         fetch("https://restcountries.com/v3.1/all")
             .then(res => res.json())
@@ -41,14 +43,24 @@ export const ConfiremPurchese = () => {
     if (!product?.title) {
         return <Loading />
     }
-    const onSubmit = data => {
-        console.log(data)
-const updateAvailableQuantity = product?.availableQuantity - ~~data?.quantity
+    const onSubmit = data => { 
+        const postData = {
+            email : user?.email,
+            country : data.country,
+            productColor : data.productColor,
+            title : product?.title,
+            price : product.price,
+            quantity : data.quantity,
+            condition : data.condition,
+            address : data.address,
+            availableQuantity : product?.availableQuantity,
+            productId : product?._id,
+        }
         const url = `https://manufacturer-0397.onrender.com/customerorder`
         fetch(url, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(data)
+            body: JSON.stringify(postData)
 
         })
             .then(res => res.json())
@@ -56,23 +68,6 @@ const updateAvailableQuantity = product?.availableQuantity - ~~data?.quantity
                 setNewUser(true)
                 console.log(result)
             })
-            if (updateAvailableQuantity) {
-                const productInfoData = {
-                    availableQuantity: updateAvailableQuantity,
-                }
-                fetch(`https://manufacturer-0397.onrender.com/product/${id}`, {
-                    method: 'PUT',
-                    headers: {
-                        'content-type': 'application/json'
-                    },
-                    body: JSON.stringify(productInfoData)
-    
-                })
-                    .then(res => res.json())
-                    .then(data => { console.log(data)
-    
-                    })
-            }
     }
     return (
         <div className='hero min-h-screen '>
@@ -85,10 +80,7 @@ const updateAvailableQuantity = product?.availableQuantity - ~~data?.quantity
 
                                 <div class=" w-full lg:w-[800px] grid grid-cols lg:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="label">
-                                            <span className="label-text">Your Email</span>
-                                        </label>
-                                        <input {...register("email", { required: true })} type="email" value={user.email} className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                        
                                         <div className=" rounded-md shadow-sm my-2">
                                             <label className="label">
                                                 <span className="label-text">Selecte Your Country</span>
@@ -124,9 +116,9 @@ const updateAvailableQuantity = product?.availableQuantity - ~~data?.quantity
                                         </label>
                                         <input value={product.price} {...register("price", { required: true })} type="text" class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         <label className="label">
-                                            <span className="label-text">Set Quantity</span>
+                                            { product?.availableQuantity < 10 ? <span className="label-text">Set pre Order Quantity</span>:<span className="label-text">Set Quantity</span>}
                                         </label>
-                                        <input {...register("quantity", { min: 10, max: maxQuantity }, { required: true })} type="number" className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                        {product?.availableQuantity < 10 ? <input {...register("quantity", { min: 10, max: 100 }, { required: true })} type="number" className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" /> : <input {...register("quantity", { min: 10, max: maxQuantity }, { required: true })} type="number" className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />}
                                         <div className='text-left my-2'>
                                             {errors.quantity && <span className='text-rose-300 '>Minimum Quantity 10 pieces and Maximum Quantity {maxQuantity}  pieces</span>}
                                         </div>
@@ -177,7 +169,7 @@ const updateAvailableQuantity = product?.availableQuantity - ~~data?.quantity
                                 </div>
 
                                 <div class="form-control mt-6">
-                                    <button class="btn bg-[#C59C86] text-black hover:text-white">Add to Cart</button>
+                                    {admin ? <button class="btn bg-[#C59C86] text-black hover:text-white" disabled>Admin Cannot Bye Product</button> : <button class="btn bg-[#C59C86] text-black hover:text-white">Add to Cart</button>}
                                 </div>
                             </div>
                         </form>

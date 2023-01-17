@@ -94,10 +94,12 @@ const Myorders = () => {
                                                 <td>
                                                     {!product.paid && <button onClick={() => handleDelete(product._id)} class="btn btn-ghost btn-xs">Cancel</button>}
                                                 </td>
-                                                <td>
+                                                { product?.availableQuantity < 10 ? <td>
+                                                    <button class="btn btn-ghost btn-xs">Wait For Stock Update</button>
+                                                </td> : <td>
                                                     {(product.price && !product.paid) && <Link to={`/dashboard/payment/${product._id}`} ><button class="btn btn-ghost btn-xs">pay</button></Link>}
                                                     {(product.price && product.paid) && <span class="text-cyan-400 font-bold">Paid</span>}
-                                                </td>
+                                                </td>}
                                             </tr>
                                         </tbody>
                                     </>

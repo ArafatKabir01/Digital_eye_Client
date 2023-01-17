@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
 const UpdateProduct = () => {
+    const [producrUpdated , setProducrUpdated] = useState(0)
     let { id } = useParams()
     const { register, handleSubmit, watch, reset, resetField, formState: { errors } } = useForm();
     const onSubmit = async data => {
@@ -50,9 +51,11 @@ const UpdateProduct = () => {
 
             })
                 .then(res => res.json())
-                .then(data => { console.log(data)
+                .then(data => { 
+                    console.log(data)
 
                 })
+                setProducrUpdated(data?.availableQuantity)
         }else if (data?.title && !data.images[0]) {
             const productInfoData = {
                 title: data?.title,
@@ -73,10 +76,31 @@ const UpdateProduct = () => {
 
             })
                 .then(res => res.json())
-                .then(data => { console.log(data)
+                .then(data => { 
+                    console.log(data)
 
                 })
+                setProducrUpdated(data?.availableQuantity)
         }
+    }
+    if(producrUpdated > 10){
+        const updateQuantity = {
+            availableQuantity : producrUpdated,
+            productId : id 
+        } 
+        fetch(`https://manufacturer-0397.onrender.com/orderUpdate`, {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(updateQuantity)
+
+            })
+                .then(res => res.json())
+                .then(data => { 
+                   console.log(data)
+
+                })
     }
   return (
     <div>

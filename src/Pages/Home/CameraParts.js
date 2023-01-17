@@ -42,11 +42,12 @@ const CameraParts = () => {
                                     <h2 className=" h-10 text-amber-400 px-3 glassBox__title">{parts?.title}</h2>
                                     <div className='w-64 font-bold p-4 my-5 h-20 text-amber-500 leading-6 text-center'>
                                         <p>Price : {parts?.price}$</p>
-                                        <p>Available quantity : {parts?.availableQuantity} pic</p>
+                                        {parts?.availableQuantity <10 ? <p className='text-red-700'>Stock Out</p> : <p>Available quantity : {parts?.availableQuantity} pieces</p>}
                                     </div>
                                 </div>
-                                <div className="card-actions  justify-end h-16">
+                                <div className="card-actions my-4 justify-end h-16">
                                 <button onClick={() => navigateToProductInfo(parts?._id)} className="btn btn-sm m-5 my-2">See details</button>
+                                
                                 </div>
                             </div>
                         </div>
