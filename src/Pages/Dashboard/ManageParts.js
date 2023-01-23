@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import UseParts from '../Hooks/UseParts';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 const ManageParts = () => {
     const [products, setProducts] = UseParts([])
     const [seacrchText , setSearchText] = useState('')
@@ -18,26 +19,29 @@ const ManageParts = () => {
                     console.log(data)
                     const remaining = products.filter(product => product._id !== id);
                     setProducts(remaining);
+                    toast.success('Delete successfull', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                 })
         }
     }
     const handleUpdate = id => {
         navigate(`/updateProduct/${id}`)
     }
-    useEffect(()=>{
-        console.log('ok')
-        fetch("https://manufacturer-0397.onrender.com/allProducts")
-        .then(res => res.json())
-        .then(data => {
-            const match = data.filter(d => d.title.includes(seacrchText))
-            setSearchREsult(match)
-        })
-    },[seacrchText])
+
     const handleSearch = event =>{
         setSearchText(event.target.value)
     }
+
     return (
-        <div className=''>
+        <div className='mb-24 '>
             <div>
                 <div class="overflow-x-auto w-full">
                     <table class="table w-full">
@@ -60,8 +64,15 @@ const ManageParts = () => {
                                         <th></th>
                                     </tr>
                                 </thead>
-                                {
-                                    products.map(product => <>
+                                {products.filter(value =>{
+                                        if(seacrchText === "" ){
+                                            return value;
+                                        }else if(value.title.toLowerCase().includes(seacrchText.toLowerCase())){
+                                            return value 
+                                            
+                                        }
+                                              
+                                    }).map(product => <>
                                         <tbody>
                                             <tr>
                                                 

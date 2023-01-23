@@ -17,47 +17,52 @@ const Navbar = () => {
   const [admin] = useAdmin(user)
   const email = user?.email
   const userApi = `https://manufacturer-0397.onrender.com/userInfo/${email}`
-  let { users, loading, userRefetch , setValu } = UseSingleUser(userApi)
-  const {setNewUser , newUser} = useContext(UserContext)
+  let { users, loading, userRefetch, setValu } = UseSingleUser(userApi)
+  const { setNewUser, newUser } = useContext(UserContext)
   const cartApi = `https://manufacturer-0397.onrender.com/myOrder?email=${email}`
-  let { cartitems, cartLoading, cartRefetch , setValue } = UseCart(cartApi)
-useEffect(()=>{
-  if (newUser === true) {
-    userRefetch()
-    cartRefetch()
-    setNewUser(false)
-  }
-},[newUser])
+  let { cartitems, cartLoading, cartRefetch, setValue } = UseCart(cartApi)
+  console.log(cartitems)
+  useEffect(() => {
+    if (newUser === true) {
+      userRefetch()
+      cartRefetch()
+      setNewUser(false)
+    }
+  }, [newUser])
+
   if (loading) {
     return <Loading />
   }
 
 
   const logOut = () => {
+    cartRefetch()
     signOut(auth)
     localStorage.removeItem('accessToken')
   }
 
-console.log(cartitems.length)
-const filterCart = cartitems.filter(value => {
-  if (value.price && !value.paid) {
+  console.log(cartitems.length)
+
+  const filterCart = cartitems.filter(value => {
+    if (value.price && !value.paid) {
       return value;
-  }
-})
+    }
+  })
+  console.log(filterCart.length)
   return (
     <div>
-      <div className='text-white'>
+      <div className='text-white z-20'>
 
         <div className="navbar w-full container fixed left-0 top-0  bg-no-repeat bg-cover text-xl z-10 h-24   top-0 left-0 right-0 m-auto">
           <div className="navbar-start  ">
             <div className="dropdown">
               <label tabindex="0" className="btn btn-ghost lg:hidden">
+
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
               </label>
-              <ul tabindex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow   rounded-box w-52">
+              <ul tabindex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow  bg-base-100  rounded-box w-52">
                 <li>
                   < Link to="/">Home</ Link>
-
                   <Link to='/about'>About</Link>
                   <a href='https://effortless-dragon-4ad78d.netlify.app/ ' target="_blank" >Portfolio</a>
 
@@ -68,7 +73,7 @@ const filterCart = cartitems.filter(value => {
               </ul>
             </div>
             <div className=' justify-items-center items-center w-80 h-26 flex'>
-              <h1><a className=" p-3 md:p-7 lg:p-full inline-block align-middle text-[30%] font-bold  text-black 	">BASS BOSS</a></h1>
+              <h1><a className=" p-0 md:p-7 lg:p-7 inline-block align-middle text-[20px] lg:text-[40px] font-bold  text-black 	">BASS BOSS</a></h1>
             </div>
 
           </div>
@@ -85,14 +90,14 @@ const filterCart = cartitems.filter(value => {
             </ul>
           </div>
           <div className="navbar-end ">
-            {admin && user ? <h2 className='mx-2'>Admin</h2>: <></>}
+            {admin && user ? <h2 className='mx-2'>Admin</h2> : <></>}
             <div className="flex aling-center gap-2">
-              {!admin && <div className="dropdown dropdown-end ">
+              {!admin || !user ? <div className="dropdown dropdown-end ">
 
                 <label tabIndex={0} className="btn btn-ghost btn-circle">
                   <div className="indicator">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                    <span className="badge badge-sm indicator-item">{filterCart?.length}</span>
+                    <span className="badge badge-sm indicator-item">{!user ? 0 : filterCart?.length}</span>
                   </div>
                 </label>
                 <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
@@ -104,14 +109,14 @@ const filterCart = cartitems.filter(value => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> : <></>
 
               }
               {
                 user ? <div className="dropdown dropdown-end">
                   <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full">
-                      <img src={users?.images ? users?.images : user?.photoURL } />
+                      <img src={users?.images ? users?.images : user?.photoURL} />
                     </div>
                   </label>
                   <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
@@ -127,9 +132,13 @@ const filterCart = cartitems.filter(value => {
                   </ul>
                 </div> : <></>
               }
+
             </div>
+
           </div>
+
         </div>
+
       </div>
 
     </div>

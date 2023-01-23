@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 const UseCart = (cartApi) => {
     const [cartitems, setcartitems] = useState([])
-    const [loading, setLoading] = useState(null)
+    const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
 
@@ -31,7 +31,7 @@ const UseCart = (cartApi) => {
             fetchData();
         }, [cartApi]);
 
-
+console.log(loading)
 
         return { cartitems, cartRefetch: fetchData, setValue: setcartitems, cartLoading: loading };
     

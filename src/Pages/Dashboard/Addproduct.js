@@ -1,18 +1,19 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Addproduct = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const [imgCount , setImgCount]= useState(0)
+    const [imageQuantity , setImageQuantity]= useState(0)
+    const [imgFiles , setImgFiles]= useState(null)
     const [error, setError] = useState('');
 
     const onSubmit = async (data, e) => {
-        setImgCount(data.images.length)
         const imagehostUrl = `https://api.imgbb.com/1/upload?key=efa866edd2d0d4161f2c96b05f501583`
         const api_kye = "efa866edd2d0d4161f2c96b05f501583"
         let imgurls = []
-        for (const file of data.images) {
+        for (const file of imgFiles) {
             let formData = new FormData();
             formData.append("image", file);
             formData.append("key", api_kye);
@@ -55,22 +56,56 @@ const Addproduct = () => {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data)
-                    // you can add here like, use a state variable for giving a message that product is added successfully
+                    toast.success('Product added successfull', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    toast.error('Sorry! Product Is not added.Try Again..', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        });
+                })
         }
 
 
         console.log(imgurls)
     };
-
+    const onChange = e => {
+        const files = e.target.files
+        console.log(files.length)
+        if (files.length === 6 ) {
+            setImgFiles(files)
+            setError("")
+            setImageQuantity(files.length)
+        } else {
+            setError("Sorry! You can upload only 6 images.")
+          
+        }
+        
+    }
+    console.log(error)
     return (
-        <div>
+        <div className='h-full mb-24 '>
+            
             <div className=''>
                 <div className=' '>
                     <h2 className='text-2xl font-bold p-3'>Add Product</h2>
                     <form className='m-auto' onSubmit={handleSubmit(onSubmit)}>
-                        <div class="hero    ">
+                        <div class="hero ">
                             <div class="flex-col lg:flex-row-reverse">
                                 <div class="card  w-full shadow-2xl ">
                                     <div class="card-body ">
@@ -104,10 +139,12 @@ const Addproduct = () => {
                                                                 Drop Image to Attach, or <span className="text-blue-600 underline">browse</span>
                                                             </span>
                                                         </span>
-                                                        <input type="file" name='images' className="hidden" multiple {...register('images' , { required: true })}   />
+                                                        <input  type="file" name='images' className="hidden" multiple {...register('images' , { required: true ,min:6 , max:6})} onChange={onChange}  />
                                                     </label>
                                                 </div>
-                                                <h2 className='text-xl p-2'>Selected images : {imgCount}</h2>
+                                                <h2 className='text-xl p-2'>Selected images : {imageQuantity}</h2>
+                                                <h2>{error}</h2>
+                                                <h2 className='text-sm'>Note : Your selected first 3 img for product color red ,black and rose gold and last 3 img for product details.You need to upload image serialized by number like - 1.Red , 2.black .....  </h2>
                                             </div>
                                             <div>
                                                 <div className="my-1">
@@ -159,11 +196,9 @@ const Addproduct = () => {
                                                     ></textarea>
                                                 </div>
                                             </div>
-
                                         </div>
-
                                         <div class="form-control mt-6">
-                                            <button class="btn btn-primary">Submit</button>
+                                            <button   class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
                                 </div>

@@ -43,7 +43,7 @@ const Myorders = () => {
     return (
         <div>
             <div>
-                <div class="overflow-x-auto w-full">
+                <div class="overflow-x-auto mb-24  w-full">
                     <table class="table w-full">
                         <div class="overflow-x-auto w-full">
                             <table class="table w-full">

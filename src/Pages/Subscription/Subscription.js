@@ -22,15 +22,15 @@ const Subscription = () => {
     return (
         <div style={{ backgroundImage: `url(${musicBg})` }} className="hero min-h-screen bg-fixed bg-center
         bg-no-repeat bg-cover">
-            <img style={{ transform: `scale(${countT})`, top: "2300px" }} className={count ? "element  hidden md:block lg:block w-[370px] h-[350px]  " : "  w-[370px] h-[350px] hidden md:block lg:block element2"} src="https://www.apple.com/v/airpods-max/e/images/overview/hero__gnfk5g59t0qe_xlarge.png" />
+            <img style={{ transform: `scale(${countT})`, top: "54%" }} className={count ? "element  hidden md:block lg:block w-[370px] h-[350px] absolute" : "w-[370px] h-[350px] hidden md:block lg:block element2"} src="https://www.apple.com/v/airpods-max/e/images/overview/hero__gnfk5g59t0qe_xlarge.png" />
             <div >
 
                 <div className="hero-content text-center text-neutral-content">
                     <div className=" p-2 w-full lg:w-[800px] h-full lg:h-[280px] rounded opacity-80	">
                         <div className='my-20 '>
-                            <h2 className=" text-4xl font-bold text-green-400	">Subscribe For new Products</h2>
+                            <h2 className=" text-4xl font-bold text-green-400	">Subscribe For Special Offers</h2>
                             <div className='flex gap-3 justify-center'>
-                                <p className="">We Will send two email in a week for new products</p>
+                                <p className="">We Will send two email in a week for special offer</p>
                             </div>
                             <div>
                                 <form onSubmit={handleSubmit(onSubmit)} className=" ">

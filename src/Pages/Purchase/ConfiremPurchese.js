@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import auth from '../../firebase.init';
 import useAdmin from '../Hooks/useAdmin';
 import { UserContext } from '../Shared/ContextUser';
@@ -43,18 +45,18 @@ export const ConfiremPurchese = () => {
     if (!product?.title) {
         return <Loading />
     }
-    const onSubmit = data => { 
+    const onSubmit = data => {
         const postData = {
-            email : user?.email,
-            country : data.country,
-            productColor : data.productColor,
-            title : product?.title,
-            price : product.price,
-            quantity : data.quantity,
-            condition : data.condition,
-            address : data.address,
-            availableQuantity : product?.availableQuantity,
-            productId : product?._id,
+            email: user?.email,
+            country: data.country,
+            productColor: data.productColor,
+            title: product?.title,
+            price: product.price,
+            quantity: data.quantity,
+            condition: data.condition,
+            address: data.address,
+            availableQuantity: product?.availableQuantity,
+            productId: product?._id,
         }
         const url = `https://manufacturer-0397.onrender.com/customerorder`
         fetch(url, {
@@ -67,10 +69,30 @@ export const ConfiremPurchese = () => {
             .then(result => {
                 setNewUser(true)
                 console.log(result)
+                toast.success('Order added successfull', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
             })
     }
     return (
         <div className='hero min-h-screen '>
+            <ToastContainer position="top-center"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light" />
             <div className="hero-content  text-center my-20">
 
                 <div class="flex-col lg:flex-row-reverse">
@@ -80,7 +102,7 @@ export const ConfiremPurchese = () => {
 
                                 <div class=" w-full lg:w-[800px] grid grid-cols lg:grid-cols-2 gap-4">
                                     <div>
-                                        
+
                                         <div className=" rounded-md shadow-sm my-2">
                                             <label className="label">
                                                 <span className="label-text">Selecte Your Country</span>
@@ -116,7 +138,7 @@ export const ConfiremPurchese = () => {
                                         </label>
                                         <input value={product.price} {...register("price", { required: true })} type="text" class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                         <label className="label">
-                                            { product?.availableQuantity < 10 ? <span className="label-text">Set pre Order Quantity</span>:<span className="label-text">Set Quantity</span>}
+                                            {product?.availableQuantity < 10 ? <span className="label-text">Set pre Order Quantity</span> : <span className="label-text">Set Quantity</span>}
                                         </label>
                                         {product?.availableQuantity < 10 ? <input {...register("quantity", { min: 10, max: 100 }, { required: true })} type="number" className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" /> : <input {...register("quantity", { min: 10, max: maxQuantity }, { required: true })} type="number" className="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />}
                                         <div className='text-left my-2'>

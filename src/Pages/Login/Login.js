@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useForm } from "react-hook-form";
 import auth from '../../firebase.init';
 import img from '../../Images/pexels-photo-3721941.jpeg'
 import useTokens from '../Hooks/useTokens';
+import { UserContext } from '../Shared/ContextUser';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
@@ -17,6 +18,7 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
     console.log(user)
+    const {setNewUser , newUser} = useContext(UserContext)
     const [token] = useTokens(user || guser)
     const navigate = useNavigate()
     const location = useLocation()
@@ -37,6 +39,7 @@ const Login = () => {
 
     }
     if (token) {
+        setNewUser(true)
         navigate(from, { replace: true });
 
     }

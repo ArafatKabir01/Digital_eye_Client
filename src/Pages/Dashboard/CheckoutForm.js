@@ -2,6 +2,7 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import UseCart from '../Hooks/UseCart';
 import { UserContext } from '../Shared/ContextUser';
 
@@ -121,7 +122,33 @@ const CheckoutForm = ({ orders }) => {
                 console.log(data)
 
             })
-
+                const updateQuantity = {
+                    availableQuantity : updateAvailableQuantity,
+                    productId : productId 
+                } 
+                fetch(`https://manufacturer-0397.onrender.com/orderUpdate`, {
+                        method: 'PUT',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(updateQuantity)
+        
+                    })
+                        .then(res => res.json())
+                        .then(data => { 
+                           console.log(data)
+        
+                        })
+                        toast.success('Payment successfull', {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "light",
+                        });
         setNewUser(true)
         navigate(`/dashboard/myOrder`)
     }

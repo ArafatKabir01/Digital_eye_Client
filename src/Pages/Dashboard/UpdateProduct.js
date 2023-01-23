@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 const UpdateProduct = () => {
     const [producrUpdated , setProducrUpdated] = useState(0)
@@ -104,7 +105,17 @@ const UpdateProduct = () => {
     }
   return (
     <div>
-            <div className='h-screen py-20'>
+        <ToastContainer position="top-center"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light" />
+            <div className='h-screen py-20 mb-24 '>
                 <div className=' '>
                     <h2 className='text-2xl font-bold p-3'>Update Product</h2>
                     <form className='m-auto' onSubmit={handleSubmit(onSubmit)}>

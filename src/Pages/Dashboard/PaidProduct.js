@@ -12,7 +12,7 @@ const PaidProduct = () => {
     const email = user?.email
     const cartApi = `https://manufacturer-0397.onrender.com/myOrder?email=${email}`
     let { cartitems, cartLoading, cartRefetch, setValue } = UseCart(cartApi)
-
+    const reverseData = cartitems.reverse()
     const { setNewUser, newUser } = useContext(UserContext)
     useEffect(() => {
         if (newUser === true) {
@@ -43,7 +43,7 @@ const PaidProduct = () => {
     return (
         <div>
             <div>
-                <div class="overflow-x-auto w-full">
+                <div class="overflow-x-auto w-full mb-24 ">
                     <table class="table w-full">
                         <div class="overflow-x-auto w-full">
                             <table class="table w-full">
@@ -61,7 +61,7 @@ const PaidProduct = () => {
                                 </thead>
 
                                 {
-                                    cartitems?.filter(value => {
+                                    reverseData?.filter(value => {
                                         if (value.price && value.paid) {
                                             return value;
                                         }
@@ -122,7 +122,7 @@ const PaidProduct = () => {
                                                                                         </g>
                                                                                     </g>
                                                                                 </svg>
-                                                                                <p tabindex="0" class="focus:outline-none text-indigo-700 text-xs font-bold -ml-2"> Step 3:On the way</p>
+                                                                                <p tabindex="0" class="focus:outline-none text-indigo-700 text-xs font-bold -mx-1"> Under Developing</p>
                                                                             </div>
                                                                         </div>
                                                                         <div class="bg-indigo-700 h-6 w-6 rounded-full shadow flex items-center justify-center -ml-2">

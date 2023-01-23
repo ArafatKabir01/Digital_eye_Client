@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { useQuery } from 'react-query';
 import auth from '../../firebase.init';
 import UseSingleUser from '../Hooks/UseSingleUser';
 import { UserContext } from '../Shared/ContextUser';
 import Loading from '../Shared/Loading';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Myprofile = () => {
     const [user,loading, Uerror] = useAuthState(auth);
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -54,9 +54,29 @@ const Myprofile = () => {
                 .then(data => {
                     userRefetch()
                     setNewUser(true)
-                    // you can add here like, use a state variable for giving a message that product is added successfully
+                    toast.success('Profile Update successfull', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    toast.error('Sorry! Profile is not update.Try Again..', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        });
+                })
         } else {
             throw new Error(responseData.message);
         }
@@ -65,7 +85,8 @@ const Myprofile = () => {
 
     };
     return (
-        <div>
+        <div className='mb-24 '>
+            
             <div>
                 <h2 className='text-2xl font-bold p-3'>My Profile</h2>
                 <div className='grid grid-cols justify-items-center '>
