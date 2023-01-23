@@ -53,8 +53,8 @@ const Navbar = () => {
     <div>
       <div className='text-white z-20'>
 
-        <div className="navbar w-full container fixed left-0 top-0  bg-no-repeat bg-cover text-xl z-10 h-24   top-0 left-0 right-0 m-auto">
-          <div className="navbar-start  ">
+        <div className="navbar navBlur px-44 w-full  fixed left-0 top-0  bg-no-repeat bg-cover text-xl z-10 h-24   top-0 left-0 right-0 m-auto">
+          <div className="navbar-start">
             <div className="dropdown">
               <label tabindex="0" className="btn btn-ghost lg:hidden">
 

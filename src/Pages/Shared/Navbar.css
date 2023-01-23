@@ -10,3 +10,6 @@ h1{
     text-fill-color: transparent;
     color: transparent;
   }
+  .navBlur{
+    backdrop-filter: blur(15px);
+  }
