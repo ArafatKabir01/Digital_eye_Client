@@ -6,7 +6,7 @@ const About = () => {
         setSeeMore(data)
     }
     return (
-        <div className={seemore === false ? "h-screen bg-fixed bg-center bg-no-repeat bg-cover":'h-full bg-fixed bg-center bg-no-repeat bg-cover'}>
+        <div className={seemore === false ? "h-full bg-fixed bg-center bg-no-repeat bg-cover":'h-full bg-fixed bg-center bg-no-repeat bg-cover'}>
             <div >
                 <div data-aos="zoom-in" className='w-full md:w-6/12 lg:w-6/12 pt-[150px]  p-4 bg-slate-500 md:bg-transparent lg:bg-transparent ml-0  lg:ml-52'>
                     <h2 className='text-6xl font-bold text-white w-full'>About This Website</h2>

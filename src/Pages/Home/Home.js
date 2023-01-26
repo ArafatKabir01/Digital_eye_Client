@@ -21,7 +21,7 @@ const Home = () => {
     });
 
     return (
-        <div className='relative scroll-smooth overflow-x-hidden overflow-y-hidden '>
+        <div className='relative scroll-smooth overflow-x-hidden overflow-y-hidden'>
 
             <div className=' grid justify-items-center'>
                 <Banner2 ></Banner2>

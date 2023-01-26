@@ -1,13 +1,23 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 const UpdateProduct = () => {
     const [producrUpdated , setProducrUpdated] = useState(0)
     let { id } = useParams()
     const { register, handleSubmit, watch, reset, resetField, formState: { errors } } = useForm();
     const onSubmit = async data => {
+        toast.success('please wait product is updating', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
         console.log(data)
         const imagehostUrl = `https://api.imgbb.com/1/upload?key=efa866edd2d0d4161f2c96b05f501583`
         const api_kye = "efa866edd2d0d4161f2c96b05f501583"
@@ -79,6 +89,16 @@ const UpdateProduct = () => {
                 .then(res => res.json())
                 .then(data => { 
                     console.log(data)
+                    toast.success('Product update successfull', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
 
                 })
                 setProducrUpdated(data?.availableQuantity)
@@ -105,16 +125,6 @@ const UpdateProduct = () => {
     }
   return (
     <div>
-        <ToastContainer position="top-center"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light" />
             <div className='h-screen py-20 mb-24 '>
                 <div className=' '>
                     <h2 className='text-2xl font-bold p-3'>Update Product</h2>

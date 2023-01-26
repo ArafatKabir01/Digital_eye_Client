@@ -16,8 +16,7 @@ const Dashboard = () => {
 
     return (
         <div className=" w-screen" >
-            
-            <div className="drawer drawer-mobile pt-24">
+            <div className="drawer drawer-mobile pt-16">
                 
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle bg-base-200" />
                 <label htmlFor="my-drawer-2" className="w-32 ml-[190px] absolute z-40 fixed -mt-[60px] drawer-button lg:hidden"><img src={menuOpener}></img></label>

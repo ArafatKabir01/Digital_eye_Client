@@ -53,7 +53,7 @@ const Navbar = () => {
     <div>
       <div className='text-white z-20'>
 
-        <div className="navbar navBlur px-44 w-full  fixed left-0 top-0  bg-no-repeat bg-cover text-xl z-10 h-24   top-0 left-0 right-0 m-auto">
+        <div className="navbar navBlur px-4 lg:px-44 w-full  fixed left-0 top-0  bg-no-repeat bg-cover text-xl z-10 h-16  top-0 left-0 right-0 m-auto">
           <div className="navbar-start">
             <div className="dropdown">
               <label tabindex="0" className="btn btn-ghost lg:hidden">
@@ -103,7 +103,6 @@ const Navbar = () => {
                 <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
                   <div className="card-body">
                     <span className="font-bold text-lg"></span>
-                    <span className="text-info">Subtotal: $999</span>
                     <div className="card-actions">
                       <Link to='/dashboard/myorder' className="btn btn-sm btn-block">View cart</Link>
                     </div>

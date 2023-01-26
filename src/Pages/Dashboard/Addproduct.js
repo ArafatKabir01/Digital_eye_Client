@@ -10,6 +10,16 @@ const Addproduct = () => {
     const [error, setError] = useState('');
 
     const onSubmit = async (data, e) => {
+        toast.success('please wait product is uploading...', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
         const imagehostUrl = `https://api.imgbb.com/1/upload?key=efa866edd2d0d4161f2c96b05f501583`
         const api_kye = "efa866edd2d0d4161f2c96b05f501583"
         let imgurls = []
@@ -142,8 +152,8 @@ const Addproduct = () => {
                                                         <input  type="file" name='images' className="hidden" multiple {...register('images' , { required: true ,min:6 , max:6})} onChange={onChange}  />
                                                     </label>
                                                 </div>
-                                                <h2 className='text-xl p-2'>Selected images : {imageQuantity}</h2>
-                                                <h2>{error}</h2>
+                                                <h2 className='text-xl  p-2'>Selected images : {imageQuantity}</h2>
+                                                <h2 className='text-red-400 py-1'>{error}</h2>
                                                 <h2 className='text-sm'>Note : Your selected first 3 img for product color red ,black and rose gold and last 3 img for product details.You need to upload image serialized by number like - 1.Red , 2.black .....  </h2>
                                             </div>
                                             <div>

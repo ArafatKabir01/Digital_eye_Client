@@ -21,19 +21,19 @@ const Subscription = () => {
     });
     return (
         <div style={{ backgroundImage: `url(${musicBg})` }} className="hero min-h-screen bg-fixed bg-center
-        bg-no-repeat bg-cover">
-            <img style={{ transform: `scale(${countT})`, top: "54%" }} className={count ? "element  hidden md:block lg:block w-[370px] h-[350px] absolute" : "w-[370px] h-[350px] hidden md:block lg:block element2"} src="https://www.apple.com/v/airpods-max/e/images/overview/hero__gnfk5g59t0qe_xlarge.png" />
+        bg-no-repeat bg-cover py-64">
+            <img style={{ transform: `scale(${countT})`, top: "54%" }} className={count ? "element  hidden md:block lg:block w-[500px] h-[350px] absolute" : "w-[500px] h-[350px] hidden md:block lg:block element2"} src="https://www.apple.com/v/airpods-max/e/images/overview/hero__gnfk5g59t0qe_xlarge.png" />
             <div >
 
-                <div className="hero-content text-center text-neutral-content">
-                    <div className=" p-2 w-full lg:w-[800px] h-full lg:h-[280px] rounded opacity-80	">
+                <div className="hero-content text-center text-neutral-content ">
+                    <div className=" p-2 w-full lg:w-[600px] h-full lg:h-[280px] rounded opacity-80	">
                         <div className='my-20 '>
-                            <h2 className=" text-4xl font-bold text-green-400	">Subscribe For Special Offers</h2>
+                            <h2 className=" text-4xl font-bold text-green-400">Subscribe For Special Offers</h2>
                             <div className='flex gap-3 justify-center'>
                                 <p className="">We Will send two email in a week for special offer</p>
                             </div>
                             <div>
-                                <form onSubmit={handleSubmit(onSubmit)} className=" ">
+                                <form onSubmit={handleSubmit(onSubmit)} className="">
                                     <div className=' w-full flex gap-3 justify-center my-6'>
                                         <div>
                                             <input {...register("email", { required: true })} type="email" placeholder="Type your email address" className="input input-bordered rounded-none" />
@@ -42,7 +42,6 @@ const Subscription = () => {
                                             <button className="btn btn-warning rounded-none">I Want It</button>
                                         </div>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
