@@ -5,6 +5,7 @@ import Loading from '../Shared/Loading';
 import { IoIosArrowDropleftCircle } from 'react-icons/io';
 import { IoIosArrowDroprightCircle } from 'react-icons/io';
 import CustomerReviews from '../CustomerReviews/CustomerReviews';
+import ScrollToTop from '../Shared/ScrollToTop';
 const NewPurchase = () => {
     let { id } = useParams()
     const [product, setProduct] = useState([])
@@ -49,6 +50,7 @@ const NewPurchase = () => {
 
     return (
         <div className='scroll-smooth overflow-x-hidden relative '>
+            <ScrollToTop/>
             <div className='scroll-smooth'>
                 <div className="z-30 absolute  mr-[70px] lg:mr-[200px] mt-[200px] lg:mt-[300px]">
                     {pageState === true && <p onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="rotate-90 text-md text-white right-0 fixed" ><IoIosArrowDropleftCircle className='w-10 h-10 mx-10' /></p>}

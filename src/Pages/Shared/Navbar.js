@@ -53,7 +53,7 @@ const Navbar = () => {
     <div>
       <div className='text-white z-20'>
 
-        <div className="navbar navBlur px-4 lg:px-44 w-full  fixed left-0 top-0  bg-no-repeat bg-cover text-xl z-10 h-16  top-0 left-0 right-0 m-auto">
+        <div className="navbar navBlur px-4 lg:px-52 w-full  fixed left-0 top-0  bg-no-repeat bg-cover text-xl z-10 h-16  top-0 left-0 right-0 m-auto">
           <div className="navbar-start">
             <div className="dropdown">
               <label tabindex="0" className="btn btn-ghost lg:hidden">
@@ -73,7 +73,7 @@ const Navbar = () => {
               </ul>
             </div>
             <div className=' justify-items-center items-center w-80 h-26 flex'>
-              <h1><a className=" p-0 md:p-7 lg:p-7 inline-block align-middle text-[20px] lg:text-[40px] font-bold  text-black 	">BASS BOSS</a></h1>
+              <Link to='/'><h1 className='p-0 md:p-7 lg:p-7 inline-block align-middle text-[20px] lg:text-[40px] font-bold'>BASS BOSS</h1></Link>
             </div>
 
           </div>

@@ -13,23 +13,23 @@ const ContactUs = () => {
             <div className='grid grid-cols lg:grid-cols-2 justify-item-center container m-auto '> 
                 <div className='p-2 lg:p-8'>
                     <div className='w-full'>
-                        <div className='w-9/12'>
+                        <div className='w-full p-2 lg:w-9/12 text-center lg:text-left'>
                             <h2 className='text-4xl font-bold text-white mb-8'>Get In Touch With Us </h2>
                             <p>BassBoss is a headphone manufacturer company that has developed a React.js web application. It has some basic features for both users and admins.</p>
                         </div>
                         <div className='my-8 '>
-                            <div className=' flex flex-wrap justify-center  gap-8 '>
-                                <div className='lg:text-center'>
-                                    <p className='w-10 h-10 lg:m-auto border border-[#C9971C] rotate-45 p-1 my-4'><AiOutlineHome className='text-2xl -rotate-45 ' /></p>
+                            <div className=' flex flex-wrap  justify-center lg:justify-start gap-8 '>
+                                <div className='text-center'>
+                                    <p className='w-10 h-10 m-auto border border-[#C9971C] rotate-45 p-1 my-4'><AiOutlineHome className='text-2xl -rotate-45 ' /></p>
                                     <p className='my-4'>Address : Chottagram,<br /> Bangladesh 4217</p>
                                 </div>
-                                <div className='lg:text-center'>
-                                    <p className='w-10 h-10 lg:m-auto border border-[#C9971C] rotate-45 p-1 my-4'><AiOutlinePhone className='text-2xl -rotate-45 mt-1 ml-1' /></p>
+                                <div className='text-center'>
+                                    <p className='w-10 h-10 m-auto border border-[#C9971C] rotate-45 p-1 my-4'><AiOutlinePhone className='text-2xl -rotate-45 mt-1 ml-1' /></p>
                                     <p className='mt-4'>+8801859670492</p>
                                     <p>+8801859670492</p>
                                 </div>
-                                <div className='lg:text-center'>
-                                    <p className='w-10 h-10 lg:m-auto border border-[#C9971C] rotate-45 p-1 my-4'><BiWorld className='text-2xl -rotate-45 mt-1 ml-1' /></p>
+                                <div className='text-center'>
+                                    <p className='w-10 h-10 m-auto border border-[#C9971C] rotate-45 p-1 my-4'><BiWorld className='text-2xl -rotate-45 mt-1 ml-1' /></p>
                                     <p className='mt-4'>www.demoWeb.com</p>
                                     <p>nabil786.ak@gmail.com</p>
                                 </div>

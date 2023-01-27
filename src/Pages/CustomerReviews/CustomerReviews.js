@@ -16,25 +16,26 @@ const CustomerReviews = () => {
   let { id } = useParams()
   const location = useLocation()
   const [user, loading, error] = useAuthState(auth);
-  const [rating, setRating] = useState(3)
+  const [rating, setRating] = useState(0)
+  const [ratingError, setRatingError] = useState("")
   const [ratingStatus, setRatingStatus] = useState("")
 
   const userApi = `https://manufacturer-0397.onrender.com/userInfo/${user?.email}`
   let { users, userLoading, userRefetch, setValu } = UseSingleUser(userApi)
-  const {setNewUser , newUser} = useContext(UserContext)
+  const { setNewUser, newUser } = useContext(UserContext)
 
-useEffect(()=>{
-  if (newUser === true) {
-    userRefetch()
-  }
-},[newUser])
-  const { data , isLoading, refetch } = useQuery('reviewData', () => fetch('https://manufacturer-0397.onrender.com/customerReview', {
-    method: 'GET',
-    headers:{
-        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+  useEffect(() => {
+    if (newUser === true) {
+      userRefetch()
     }
-}).then(res => res.json()));
-const reversedData = data?.reverse();
+  }, [newUser])
+  const { data, isLoading, refetch } = useQuery('reviewData', () => fetch('https://manufacturer-0397.onrender.com/customerReview', {
+    method: 'GET',
+    headers: {
+      authorization: `Bearer ${localStorage.getItem('accessToken')}`
+    }
+  }).then(res => res.json()));
+  const reversedData = data?.reverse();
 
   useEffect(() => {
     if (rating === 5) {
@@ -49,41 +50,46 @@ const reversedData = data?.reverse();
       setRatingStatus("Bad Product")
     }
   }, [rating])
-  if(isLoading){
-    return <Loading/>
+  if (isLoading) {
+    return <Loading />
   }
 
 
   const onSubmit = data => {
+    if (rating === 0) {
+      setRatingError("Please set star Rating!")
+    } else {
+      setRatingError("")
+      let newDate = new Date()
+      console.log(newDate)
+      const newReviewData = {
+        ratingStatus: ratingStatus,
+        date: newDate,
+        productId: id,
+        rating: rating,
+        name: data.name,
+        email: data.email,
+        review: data.review,
+        img: users.images
 
-    let newDate = new Date()
-    console.log(newDate)
-    const newReviewData = {
-      ratingStatus: ratingStatus,
-      date: newDate,
-      productId: id,
-      rating: rating,
-      name: data.name,
-      email: data.email,
-      review: data.review,
-      img: users.images
+      }
 
+      const url = `https://manufacturer-0397.onrender.com/customerReview/:${id}`
+      fetch(url, {
+        method: 'PUT',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(newReviewData)
+
+      })
+        .then(res => res.json())
+        .then(result => {
+          console.log(result)
+          refetch()
+        })
     }
 
-    const url = `https://manufacturer-0397.onrender.com/customerReview/:${id}`
-    fetch(url, {
-      method: 'PUT',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(newReviewData)
 
-    })
-      .then(res => res.json())
-      .then(result => {
-        console.log(result)
-        refetch()
-      })
 
-  
 
   }
 
@@ -119,7 +125,7 @@ const reversedData = data?.reverse();
               <div className='h-32 w-44  grid justify-items-center col-span lg:col-span-2 p-4'>
                 <div className="avatar h-10">
                   <div className="w-10  rounded-full ring  ring-[#D5ABA4] ring-offset-2">
-                    <img src={review?.img ? review?.img: blankImg} />
+                    <img src={review?.img ? review?.img : blankImg} />
                   </div>
                 </div>
                 <div className='w-18'>
@@ -137,8 +143,6 @@ const reversedData = data?.reverse();
                         emptySymbol={< AiOutlineStar />}
                         fullSymbol={<AiTwotoneStar className='text-amber-400 ' />}
                         readonly
-
-
                       />
                     </div>
                   </div>
@@ -206,7 +210,7 @@ const reversedData = data?.reverse();
                           className="w-full my-2 resize-none rounded-none border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                         ></textarea>
                       </div>
-
+                      <p className='text-red-400'>{ratingError}</p>
 
                     </div>
 

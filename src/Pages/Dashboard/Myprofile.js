@@ -142,8 +142,8 @@ const Myprofile = () => {
 
                             </div>
                             <div class="grid   place-items-center"><div className="avatar">
-                                <div className="w-24 rounded-full">
-                                    <img src={users?.images} />
+                                <div className="w-24 py-4 rounded-full">
+                                    <img src={users?.images ? users?.images : user?.photoURL} />
                                 </div>
                             </div></div>
                         </div>
@@ -151,7 +151,7 @@ const Myprofile = () => {
                         <h2 className="card-title text-4xl">{users?.name}</h2>
                     </div>
                 </div>
-                <div className='shadow-2xl text-center text-2xl font-bold my-4 px-20'>
+                <div className='shadow-2xl text-center text-2xl font-bold my-4 p-2 '>
                     <div className='py-5'>
                         <h2 className='my-4'>Email : {users?.email}</h2>
                         <h2 className='my-4'>Phone Number : {users?.phoneNumber}</h2>

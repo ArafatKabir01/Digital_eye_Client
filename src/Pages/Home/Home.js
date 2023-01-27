@@ -5,6 +5,7 @@ import './CameraParts.css'
 import Subscription from '../Subscription/Subscription';
 import Footer from '../Shared/Footer';
 import ContactUs from './ContactUs';
+import ScrollToTop from '../Shared/ScrollToTop';
 const Home = () => {
     const [count, setCount] = useState(false);
     const [countT, setCountT] = useState(0);
@@ -24,6 +25,7 @@ const Home = () => {
         <div className='relative scroll-smooth overflow-x-hidden overflow-y-hidden'>
 
             <div className=' grid justify-items-center'>
+                <ScrollToTop/>
                 <Banner2 ></Banner2>
                 <CameraParts />
                 <Subscription />

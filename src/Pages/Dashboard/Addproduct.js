@@ -109,13 +109,13 @@ const Addproduct = () => {
     }
     console.log(error)
     return (
-        <div className='h-full mb-24 '>
+        <div className='h-full'>
             
             <div className=''>
                 <div className=' '>
                     <h2 className='text-2xl font-bold p-3'>Add Product</h2>
                     <form className='m-auto' onSubmit={handleSubmit(onSubmit)}>
-                        <div class="hero ">
+                        <div class="hero pb-24">
                             <div class="flex-col lg:flex-row-reverse">
                                 <div class="card  w-full shadow-2xl ">
                                     <div class="card-body ">
