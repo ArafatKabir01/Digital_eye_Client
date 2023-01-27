@@ -7,7 +7,7 @@ const Mylocation = () => {
     const position2 = [23.136217589344916, 90.37557585772126];
     return (
         <div >
-            <MapContainer id='map' center={position} zoom={8} scrollWheelZoom={true}>
+            <MapContainer id='map' center={position} zoom={17} scrollWheelZoom={true}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

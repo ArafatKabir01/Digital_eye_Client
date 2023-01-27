@@ -11,9 +11,9 @@ const ContactUs = () => {
     return (
         <div className='bg-black w-screen'>
             <div className='grid grid-cols lg:grid-cols-2 justify-item-center container m-auto '> 
-                <div className='p-8'>
+                <div className='p-2 lg:p-8'>
                     <div className='w-full'>
-                        <div>
+                        <div className='w-9/12'>
                             <h2 className='text-4xl font-bold text-white mb-8'>Get In Touch With Us </h2>
                             <p>BassBoss is a headphone manufacturer company that has developed a React.js web application. It has some basic features for both users and admins.</p>
                         </div>
@@ -68,7 +68,7 @@ const ContactUs = () => {
                         </form>
                     </div>
                 </div>
-                <div className='ml-20'>
+                <div className='ml-0 lg:ml-20'>
                     <Mylocation />
                 </div>
             </div>
